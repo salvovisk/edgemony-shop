@@ -1,0 +1,20 @@
+.ProductsSection {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0px 20px 0px 20px;
+}
+
+@media (min-width: 768px) {
+  .ProductsSection {
+    width: 100vw;
+    padding: 0 0 0 55px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+  }
+}
