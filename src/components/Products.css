@@ -15,7 +15,7 @@
   margin-top: 15px;
   height: 180px;
   width: 220px;
-  object-fit: contain;
+  object-fit: scale-down;
 }
 
 .cardContent {
@@ -66,4 +66,32 @@
 
 .detailsBtn:active {
   transform: scale(0.9);
+}
+
+@media (min-width: 768px) {
+  .Products {
+    width: 250px;
+    height: 350px;
+    margin: 55px 25px 25px 25px;
+  }
+
+  .cardContent {
+    width: inherit;
+    height: 190px;
+  }
+
+  .titleProduct {
+    max-height: 3.6rem;
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
+  }
+
+  .Products img {
+    height: 50%;
+    width: 50%;
+    object-fit: scale-down;
+  }
 }
