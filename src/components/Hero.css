@@ -1,0 +1,24 @@
+.Hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 100vw;
+  margin-top: 25px;
+}
+
+.Hero img {
+  width: 95%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.Hero h2 {
+  display: none;
+}
+
+.Hero h1 {
+  margin-bottom: 25px;
+  font-size: 45px;
+  letter-spacing: 1px;
+  color: #457B9D;
+}

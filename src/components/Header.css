@@ -1,0 +1,13 @@
+.Header {
+  width: 100vw;
+  height: 8vh;
+  background-color: #1d3557;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px 5px rgba(25, 25, 25, 0.4);
+}
+
+.logo{
+  width: 200px;
+  height: 57px;
+}

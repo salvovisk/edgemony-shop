@@ -1,0 +1,9 @@
+.ProductsSection{
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0px 20px 0px 20px;
+
+}
