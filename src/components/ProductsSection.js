@@ -1,5 +1,5 @@
 import Products from "./Products";
-import "./ProductsSection.css"
+import "./ProductsSection.css";
 
 function ProductsSection(props) {
   const { products } = props;
@@ -11,7 +11,8 @@ function ProductsSection(props) {
             image={product.image}
             title={product.title}
             price={product.price}
-            key={product.id}
+            key={ product.id }
+            description={product.description}
           />
         );
       })}
