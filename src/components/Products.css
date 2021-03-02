@@ -55,9 +55,9 @@
   -moz-appearance: none;
 }
 
-.detailsBtn:hover,
-.detailsBtn:focus {
+.detailsBtn:hover {
   background: #0053ba;
+  cursor: pointer;
 }
 
 .detailsBtn:focus {
@@ -73,6 +73,11 @@
     width: 250px;
     height: 350px;
     margin: 55px 25px 25px 25px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .Products:hover {
+    transform: scale(1.04);
   }
 
   .cardContent {
@@ -95,3 +100,4 @@
     object-fit: scale-down;
   }
 }
+

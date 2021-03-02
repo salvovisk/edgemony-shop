@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ProductsSection from "./components/ProductsSection";
-
+// import ModalProduct from "./components/ModalProduct";
 const fakeProducts = require("./mocks/data/products.json");
 
 const data = {
