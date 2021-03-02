@@ -1,7 +1,6 @@
 import "./ModalProduct.css";
 
 function ModalProduct({ isOpen, onClose, cover, title, description, price }) {
- 
   return (
     isOpen && (
       <div className="modal">
