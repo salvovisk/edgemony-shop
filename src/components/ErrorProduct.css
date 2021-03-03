@@ -1,0 +1,40 @@
+.ErrorProduct {
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.ErrorProduct h2 {
+  font-size: 2rem;
+  color: #457b9d;
+}
+
+.reloadBtn {
+  padding: 10px 20px;
+  width: fit-content;
+  margin-top: 25px;
+  background-color: #457b9d;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 1;
+  transition: all 0.25s ease-in-out;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+
+.reloadBtn:focus {
+  outline: none;
+  border: none;
+}
+.reloadBtn:active {
+  outline: none;  
+}
+.reloadBtn:hover {
+  transform: scale(1.01);
+}
