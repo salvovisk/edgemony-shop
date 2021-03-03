@@ -1,0 +1,13 @@
+footer {
+  height: 12vh;
+  width: 100vw;
+  font-size: 1.2rem;
+  background-color: #1d3557;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: static;
+  bottom: 0;
+  left: 0;
+}

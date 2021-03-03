@@ -23,7 +23,6 @@ function ModalProduct({ isOpen, onClose, cover, title, description, price }) {
               onClick={() => {
                 onClose();
                 document.documentElement.style.overflow = "scroll";
-                document.body.scroll = "yes";
               }}
             >
               ✖️

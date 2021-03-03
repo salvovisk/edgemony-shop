@@ -28,7 +28,6 @@ function Products(props) {
               onClick={() => {
                 setModalIsOpen(!modalIsOpen);
                 document.documentElement.style.overflow = "hidden";
-                document.body.scroll = "no";
               }}
             >
               View Details
