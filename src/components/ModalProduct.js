@@ -33,8 +33,9 @@ function ModalProduct({ isOpen, onClose, cover, title, description, price }) {
             <img src={cover} alt="productImg" />
             <div className="modalTextContent">
               <h3>{title}</h3>
-              <p className="descriptionModal">{description}</p>
-              <span>€ {price}</span>
+              <p className="descriptionModal">{ description }</p>
+              
+              <span><h6>Price: </h6>€ {price}</span>
             </div>
           </div>
         </div>
