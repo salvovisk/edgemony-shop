@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: modal-is-open-fading 0.6s;
 }
 
 .modalBody {
@@ -151,5 +152,15 @@
     width: 70%;
     object-fit: scale-down;
     margin-top: 15px;
+  }
+}
+
+@keyframes modal-is-open-fading {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
