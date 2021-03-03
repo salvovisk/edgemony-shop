@@ -26,11 +26,9 @@ function Products(props) {
             <button
               className="detailsBtn"
               onClick={() => {
-                // const modal = document.querySelector(".modal");
-                // console.log(modal);
+                setModalIsOpen(!modalIsOpen);
                 document.documentElement.style.overflow = "hidden";
                 document.body.scroll = "no";
-                setModalIsOpen(!modalIsOpen);
               }}
             >
               View Details
