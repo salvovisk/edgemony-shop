@@ -1,4 +1,4 @@
-import Products from "./Products";
+import Products from "../Products/Products";
 import "./ProductsSection.css";
 
 function ProductsSection({ products, openProductModal }) {

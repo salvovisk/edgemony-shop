@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import ProductsSection from "./components/ProductsSection";
-import Loader from "./components/Loader";
-import ErrorProduct from "./components/ErrorProduct";
-import ModalProduct from "./components/ModalProduct";
-// import Footer from "./components/Footer";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import ProductsSection from "./components/ProductsSection/ProductsSection";
+import Loader from "./components/Loader/Loader";
+import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
+import ModalProduct from "./components/ModalProduct/ModalProduct";
+// import Footer from "./components/Footer/Footer";
 
 const data = {
   title: "Edgemony Shop",
