@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import ProductsSection from "./components/ProductsSection";
 import Loader from "./components/Loader";
 import ErrorProduct from "./components/ErrorProduct";
+import ModalProduct from "./components/ModalProduct";
 import Footer from "./components/Footer";
 
 const data = {
@@ -17,26 +18,60 @@ const data = {
 };
 
 function App() {
+
+  // // Modal Logic
+  const [productInModal, setProductInModal] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function openProductModal(product) {
+    // console.log(product);
+    setProductInModal(product);
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+    setTimeout(() => {
+      setProductInModal(null);
+    }, 500);
+  }
+
+  useEffect(() => {
+    if (modalIsOpen) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [modalIsOpen]);
+
+  // Api data logic
+
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState(false);
-  const [count, setCount] = useState(0);
+  const [isError, setError] = useState('');
+  const [retry, setRetry] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    setError(false);
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((products) => {
-        setProducts(products);
-        setLoading(false);
+      .then((data) => {
+        const hasError = Math.random() > 0.5;
+        if (!hasError) {
+          setProducts(data);
+          setLoading(false);
+          setError("");
+        } else {
+          throw new Error("Product server API call response error");
+        }
       })
-      .catch(() => {
+      .catch((err) => {
+        setError(err.message);
         setLoading(false);
-        setError(true);
-        // console.log(products);
       });
-  }, [count]);
+  }, [retry]);
 
   return (
     <div className="App">
@@ -46,9 +81,17 @@ function App() {
         title={data.title}
         description={data.description}
       />
-      {isLoading && <Loader />}
-      {isError && <ErrorProduct count={count} setCount={setCount} />}
-      <ProductsSection products={products} />
+      {isLoading
+        ?<Loader />
+        : !isError && <ProductsSection products={products} openProductModal={openProductModal}/>
+      }
+      
+      { isError && <ErrorProduct retry={retry} setRetry={setRetry} />}
+      <ModalProduct
+        isOpen={modalIsOpen}
+        content={productInModal}
+        closeModal={closeModal}
+      />
       <Footer />
     </div>
   );

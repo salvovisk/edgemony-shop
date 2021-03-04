@@ -1,45 +1,30 @@
 import "./ModalProduct.css";
 
-function ModalProduct({ isOpen, onClose, cover, title, description, price }) {
-  function handleClosingOnModal(event) {
-    if (event.target.className === "ModalProduct") {
-      onClose();
-      document.documentElement.style.overflow = "scroll";
-      document.body.scroll = "yes";
-    }
-  }
-
+function ModalProduct({ content, closeModal, isOpen }) {
   return (
-    isOpen && (
-      <div
-        className="ModalProduct"
-        onClick={(event) => handleClosingOnModal(event)}
-      >
-        <div className="modalBody">
-          <span className="btnSpan">
-            <button
-              className="closeBtn"
-              type="button"
-              onClick={() => {
-                onClose();
-                document.documentElement.style.overflow = "scroll";
-              }}
-            >
-              ✖️
-            </button>
-          </span>
+    <div className={`ModalProduct ${isOpen ? `isOpen` : ""}`}>
+      <div className="overlay" onClick={closeModal} />
+      <div className="body">
+        <span className="btnSpan">
+          <button className="closeBtn" type="button" onClick={closeModal}>
+            ✖️
+          </button>
+        </span>
+        {!!content ? (
           <div className="modalContent">
-            <img src={cover} alt="productImg" />
+            <img src={content.image} alt="productImg" />
             <div className="modalTextContent">
-              <h3>{title}</h3>
-              <p className="descriptionModal">{ description }</p>
-              
-              <span><h6>Price: </h6>€ {price}</span>
+              <h3>{content.title}</h3>
+              <p className="descriptionModal">{content.description}</p>
+
+              <span>
+                <h6>Price: </h6>€ {content.price}
+              </span>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
-    )
+    </div>
   );
 }
 

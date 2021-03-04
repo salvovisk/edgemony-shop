@@ -1,18 +1,15 @@
 import Products from "./Products";
 import "./ProductsSection.css";
 
-function ProductsSection(props) {
-  const { products } = props;
+function ProductsSection({ products, openProductModal }) {
   return (
     <section className="ProductsSection">
       {products.map((product) => {
         return (
           <Products
-            image={product.image}
-            title={product.title}
-            price={product.price}
-            key={ product.id }
-            description={product.description}
+            product={product}
+            key={product.id}
+            openProductModal={() => openProductModal(product)}
           />
         );
       })}

@@ -1,41 +1,20 @@
-import { useState } from "react";
 import "./Products.css";
-import ModalProduct from "./ModalProduct";
 
-function Products(props) {
-  const { image, title, price, id, description } = props;
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
+function Products({ product, openProductModal }) {
   return (
-    <>
-      <ModalProduct
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        cover={image}
-        title={title}
-        description={description}
-        price={price}
-      />
-      <div className="Products" key={id}>
-        <img src={image} alt="productImage" />
-        <div className="cardContent">
-          <h4 className="titleProduct">{title}</h4>
-          <span className="priceAndBtn">
-            {" "}
-            € {price}
-            <button
-              className="detailsBtn"
-              onClick={() => {
-                setModalIsOpen(!modalIsOpen);
-                document.documentElement.style.overflow = "hidden";
-              }}
-            >
-              View Details
-            </button>
-          </span>
-        </div>
+    <div className="Products">
+      <img src={product.image} alt={product.title} />
+      <div className="cardContent">
+        <h4 className="titleProduct">{product.title}</h4>
+        <span className="priceAndBtn">
+          {" "}
+          € {product.price}
+          <button className="detailsBtn" onClick={openProductModal}>
+            View Details
+          </button>
+        </span>
       </div>
-    </>
+    </div>
   );
 }
 

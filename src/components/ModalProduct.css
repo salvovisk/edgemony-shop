@@ -1,19 +1,37 @@
 .ModalProduct {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(225, 225, 225, 90%);
-  z-index: 2;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: modal-is-open-fading 0.6s;
+  pointer-events: none;
 }
 
-.modalBody {
+.ModalProduct.isOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ModalProduct .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(222, 222, 222, 0.85);
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.ModalProduct.isOpen .overlay {
+  opacity: 1;
+}
+
+.ModalProduct .body {
   width: 90%;
   max-width: 520px;
   height: 80%;
@@ -23,6 +41,14 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.333s ease-out;
+}
+
+.ModalProduct.isOpen .body {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .btnSpan {
@@ -30,6 +56,7 @@
   justify-content: flex-end;
   border-bottom: 1px solid rgba(25, 25, 25, 0.4);
   height: 3vh;
+  margin: 0 10px 2px 10px;
 }
 
 .closeBtn {
@@ -115,7 +142,7 @@
 }
 
 @media (min-width: 768px) {
-  .modalBody {
+  .body {
     height: 70vh;
     max-height: 80%;
   }
@@ -152,15 +179,5 @@
     width: 70%;
     object-fit: scale-down;
     margin-top: 15px;
-  }
-}
-
-@keyframes modal-is-open-fading {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
   }
 }
