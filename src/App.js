@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import ProductsSection from "./components/ProductsSection";
-import Loader from "./components/Loader";
-import ErrorProduct from "./components/ErrorProduct";
-import Footer from "./components/Footer";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import ProductsSection from "./components/ProductsSection/ProductsSection";
+import Loader from "./components/Loader/Loader";
+import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
+import ModalProduct from "./components/ModalProduct/ModalProduct";
+import SearchProducts from "./components/SearchProducts/SearchProducts";
+// import Footer from "./components/Footer/Footer";
 
 const data = {
   title: "Edgemony Shop",
@@ -17,26 +19,84 @@ const data = {
 };
 
 function App() {
+  // Search input Logic
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  useEffect(() => {
+    const results = products.filter(
+      (product) =>
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
+
+  // // Modal Logic
+  const [productInModal, setProductInModal] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function openProductModal(product) {
+    // console.log(product);
+    setProductInModal(product);
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+    setTimeout(() => {
+      setProductInModal(null);
+    }, 500);
+  }
+
+  useEffect(() => {
+    if (modalIsOpen) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [modalIsOpen]);
+
+  // Api data logic
+
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState(false);
-  const [count, setCount] = useState(0);
+  const [isError, setError] = useState("");
+  const [retry, setRetry] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    setError(false);
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((products) => {
-        setProducts(products);
-        setLoading(false);
+      .then((data) => {
+        const hasError = Math.random() > 1; /* TO CHANGE */
+        if (!hasError) {
+          setProducts(data);
+          setLoading(false);
+          setError("");
+        } else {
+          throw new Error("Product server API call response error");
+        }
       })
-      .catch(() => {
+      .catch((err) => {
+        setError(err.message);
         setLoading(false);
-        setError(true);
-        // console.log(products);
       });
-  }, [count]);
+  }, [retry]);
+
+  // ErrorBanner logic
+  const [errorBannerIsOpen, setErrorBannerIsOpen] = useState(true);
+
+  function closeBanner() {
+    setErrorBannerIsOpen(false);
+    console.log("test");
+  }
 
   return (
     <div className="App">
@@ -46,10 +106,34 @@ function App() {
         title={data.title}
         description={data.description}
       />
-      {isLoading && <Loader />}
-      {isError && <ErrorProduct count={count} setCount={setCount} />}
-      <ProductsSection products={products} />
-      <Footer />
+      <SearchProducts value={searchTerm} onChange={handleChange} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        !isError && (
+          <>
+            <ProductsSection
+              products={searchResults[0] ? searchResults : products}
+              openProductModal={openProductModal}
+            />
+          </>
+        )
+      )}
+
+      {isError && (
+        <ErrorProduct
+          retry={retry}
+          setRetry={setRetry}
+          isOpen={errorBannerIsOpen}
+          closeBanner={closeBanner}
+        />
+      )}
+      <ModalProduct
+        isOpen={modalIsOpen}
+        content={productInModal}
+        closeModal={closeModal}
+      />
+      {/* <Footer /> */}
     </div>
   );
 }

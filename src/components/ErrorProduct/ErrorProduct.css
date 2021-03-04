@@ -1,0 +1,67 @@
+.ErrorProduct {
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  height: 12vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #981212;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+}
+
+.ErrorProduct.isClosed {
+  opacity: 0;
+}
+
+.ErrorProduct h2 {
+  margin: 0 auto 0 45px;
+  font-size: 1rem;
+  color: white;
+}
+
+.reloadBtn {
+  font-size: 1rem;
+  margin-right: 15px;
+  padding: 10px 20px;
+  width: fit-content;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 1;
+  transition: all 0.25s ease-in-out;
+  color: black;
+  outline: none;
+  border: none;
+  margin-right: 25px;
+}
+
+.closeErrorBtn {
+  background-color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-right: 25px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  outline: none;
+  border: none;
+}
+
+.reloadBtn:focus,
+.closeErrorBtn:focus {
+  outline: none;
+  border: none;
+}
+.reloadBtn:active,
+.closeErrorBtn:active {
+  outline: none;
+}
+.reloadBtn:hover,
+.closeErrorBtn:focus {
+  transform: scale(1.01);
+}
