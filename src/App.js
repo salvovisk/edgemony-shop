@@ -28,8 +28,10 @@ function App() {
   };
 
   useEffect(() => {
-    const results = products.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm)
+    const results = products.filter(
+      (product) =>
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
   }, [searchTerm]);
@@ -104,15 +106,14 @@ function App() {
         title={data.title}
         description={data.description}
       />
+      <SearchProducts value={searchTerm} onChange={handleChange} />
       {isLoading ? (
         <Loader />
       ) : (
         !isError && (
           <>
-            <SearchProducts value={searchTerm} onChange={handleChange} />
-            
             <ProductsSection
-              products={products}
+              products={searchResults[0] ? searchResults : products}
               openProductModal={openProductModal}
             />
           </>

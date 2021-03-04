@@ -8,7 +8,7 @@ function SearchProducts({ value, onChange }) {
         type="text"
         value={value}
         onChange={onChange}
-        placeholder="🔎 'Curved Monitor' "
+        placeholder="🔎 'Curved Monitor'"
       />
     </div>
   );

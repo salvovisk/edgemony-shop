@@ -34,7 +34,7 @@
 .ModalProduct .body {
   width: 90%;
   max-width: 520px;
-  height: 80%;
+  height: 100%;
   max-height: 440px;
   background-color: white;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
