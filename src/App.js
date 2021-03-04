@@ -6,7 +6,7 @@ import ProductsSection from "./components/ProductsSection";
 import Loader from "./components/Loader";
 import ErrorProduct from "./components/ErrorProduct";
 import ModalProduct from "./components/ModalProduct";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 
 const data = {
   title: "Edgemony Shop",
@@ -18,10 +18,10 @@ const data = {
 };
 
 function App() {
-
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [errorBannerIsOpen, setErrorBannerIsOpen] = useState(true)
 
   function openProductModal(product) {
     // console.log(product);
@@ -34,6 +34,11 @@ function App() {
     setTimeout(() => {
       setProductInModal(null);
     }, 500);
+  }
+
+  function closeBanner() {
+    setErrorBannerIsOpen(false)
+    console.log('test')
   }
 
   useEffect(() => {
@@ -50,7 +55,7 @@ function App() {
 
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState('');
+  const [isError, setError] = useState("");
   const [retry, setRetry] = useState(false);
 
   useEffect(() => {
@@ -81,18 +86,31 @@ function App() {
         title={data.title}
         description={data.description}
       />
-      {isLoading
-        ?<Loader />
-        : !isError && <ProductsSection products={products} openProductModal={openProductModal}/>
-      }
-      
-      { isError && <ErrorProduct retry={retry} setRetry={setRetry} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        !isError && (
+          <ProductsSection
+            products={products}
+            openProductModal={openProductModal}
+          />
+        )
+      )}
+
+      {isError && (
+        <ErrorProduct
+          retry={retry}
+          setRetry={setRetry}
+          isOpen={errorBannerIsOpen}
+          closeBanner={closeBanner}
+        />
+      )}
       <ModalProduct
         isOpen={modalIsOpen}
         content={productInModal}
         closeModal={closeModal}
       />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

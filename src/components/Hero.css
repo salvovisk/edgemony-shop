@@ -1,9 +1,11 @@
 .Hero {
+  height: 40vh;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   width: 100vw;
   margin-top: 25px;
+  flex-grow: 0;
 }
 
 .Hero img {
@@ -27,7 +29,7 @@
   .Hero {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: center;    
+    justify-content: center;
     width: 100vw;
     box-sizing: content-box;
   }
@@ -37,9 +39,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     width: 95vw;
-    height: 25vh;
+    height: 15vh;
   }
 
   .Hero img {
@@ -47,18 +49,17 @@
     width: 95vw;
     object-fit: none;
     border-radius: 10px;
-    box-shadow: 0 0 10px 5px rgba(25,25,25,0.2);
+    box-shadow: 0 0 10px 5px rgba(25, 25, 25, 0.2);
   }
 
   .Hero h1 {
     color: rgb(87, 133, 199);
-    font-size: 4rem;
-    margin: 15px;
+    font-size: 3rem;
   }
 
   .Hero h2 {
     color: white;
     display: inline-flex;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
