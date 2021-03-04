@@ -1,0 +1,31 @@
+.SearchProducts {
+  width: 100vw;
+  height: 6vh;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.search {
+  width: 40px;
+  margin-left: 45px;
+  outline: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(25, 25, 25, 0.4);
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  border: 0.1px solid rgba(25, 25, 25, 0.4);
+}
+
+.search:active,
+.search:focus {
+  width: 70vw;
+}
+
+@media (min-width: 768px) {
+  .search:active,
+  .search:focus {
+    width: 350px;
+  }
+}

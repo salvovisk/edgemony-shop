@@ -6,6 +6,7 @@ import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
+import SearchProducts from "./components/SearchProducts/SearchProducts";
 // import Footer from "./components/Footer/Footer";
 
 const data = {
@@ -18,10 +19,24 @@ const data = {
 };
 
 function App() {
+  // Search input Logic
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  useEffect(() => {
+    const results = products.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
+
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [errorBannerIsOpen, setErrorBannerIsOpen] = useState(true)
 
   function openProductModal(product) {
     // console.log(product);
@@ -34,11 +49,6 @@ function App() {
     setTimeout(() => {
       setProductInModal(null);
     }, 500);
-  }
-
-  function closeBanner() {
-    setErrorBannerIsOpen(false)
-    console.log('test')
   }
 
   useEffect(() => {
@@ -63,7 +73,7 @@ function App() {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
       .then((data) => {
-        const hasError = Math.random() > 0.5;
+        const hasError = Math.random() > 1; /* TO CHANGE */
         if (!hasError) {
           setProducts(data);
           setLoading(false);
@@ -78,6 +88,14 @@ function App() {
       });
   }, [retry]);
 
+  // ErrorBanner logic
+  const [errorBannerIsOpen, setErrorBannerIsOpen] = useState(true);
+
+  function closeBanner() {
+    setErrorBannerIsOpen(false);
+    console.log("test");
+  }
+
   return (
     <div className="App">
       <Header logo={data.logo} />
@@ -90,10 +108,14 @@ function App() {
         <Loader />
       ) : (
         !isError && (
-          <ProductsSection
-            products={products}
-            openProductModal={openProductModal}
-          />
+          <>
+            <SearchProducts value={searchTerm} onChange={handleChange} />
+            
+            <ProductsSection
+              products={products}
+              openProductModal={openProductModal}
+            />
+          </>
         )
       )}
 

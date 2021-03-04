@@ -1,11 +1,13 @@
 .Hero {
-  height: 40vh;
+  height: max-content;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   width: 100vw;
   margin-top: 25px;
   flex-grow: 0;
+  align-self: flex-start;
+
 }
 
 .Hero img {
@@ -27,6 +29,7 @@
 
 @media (min-width: 768px) {
   .Hero {
+    height: 40vh;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -41,11 +44,12 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
     width: 95vw;
-    height: 15vh;
+    height: 20vh;
+    
   }
 
   .Hero img {
-    height: 60vh;
+    height: 40vh;
     width: 95vw;
     object-fit: none;
     border-radius: 10px;
