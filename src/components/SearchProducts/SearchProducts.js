@@ -1,5 +1,6 @@
 import "./SearchProducts.css";
 
+
 function SearchProducts({ value, onChange }) {
   const SearchInput = "search" + (value ? " contains" : "")
  

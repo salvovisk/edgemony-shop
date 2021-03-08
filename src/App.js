@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
-
 import "./App.css";
+
+import { useState, useEffect } from "react";
+import { fetchProducts, fetchCatogories } from "./services/api";
+
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
-import { fetchProducts, fetchCatogories } from "./services/api";
 
 const data = {
   title: "Edgemony Shop",
@@ -19,6 +20,10 @@ const data = {
 };
 
 function App() {
+  // Shopping Cart Logic
+  const [isInCart, setInCart] = useState([]);
+
+ 
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -68,7 +73,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header logo={data.logo} />
+      <Header logo={data.logo} isInCart={isInCart} />
       <Hero
         cover={data.cover}
         title={data.title}
@@ -92,6 +97,8 @@ function App() {
       )}
 
       <ModalProduct
+        isInCart={isInCart}
+        addToCart={setInCart}
         isOpen={modalIsOpen}
         content={productInModal}
         closeModal={closeModal}
