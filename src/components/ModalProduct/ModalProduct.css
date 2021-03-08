@@ -128,12 +128,22 @@
   display: inline-flex;
   justify-content: flex-end;
   align-items: baseline;
-  padding: 10px;
+  padding: 10px 5px ;
   margin-bottom: 10px;
   font-weight: 800;
   font-style: italic;
   width: 100%;
 }
+
+.modalTextContent span > button {
+  margin: 0 auto 0 0;
+}
+.modalTextContent span > button:disabled {
+  opacity: 0.9;
+  cursor: none;
+}
+
+
 
 .modalTextContent h6 {
   font-weight: 400;

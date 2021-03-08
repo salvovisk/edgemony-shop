@@ -1,6 +1,16 @@
 import "./ModalProduct.css";
 
-function ModalProduct({ content, closeModal, isOpen }) {
+function ModalProduct({ content, closeModal, isOpen, isInCart, addToCart }) {
+
+  function addtoCart() {
+    if (!isInCart.includes(content)) {
+      addToCart([...isInCart, content]);
+      document.getElementById(content.id).disabled = true;
+    } else {
+      document.getElementById(content.id).disabled = true;
+    }
+  }
+
   return (
     <div className={`ModalProduct ${isOpen ? `isOpen` : ""}`}>
       <div className="overlay" onClick={closeModal} />
@@ -18,6 +28,14 @@ function ModalProduct({ content, closeModal, isOpen }) {
               <p className="descriptionModal">{content.description}</p>
 
               <span>
+                <button
+                  id={content.id}
+                  className="detailsBtn"
+                  onClick={addtoCart}
+                >
+                  {" "}
+                  Add to Cart{" "}
+                </button>
                 <h6>Price: </h6>€ {content.price}
               </span>
             </div>
