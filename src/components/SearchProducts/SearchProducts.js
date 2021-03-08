@@ -1,13 +1,16 @@
 import "./SearchProducts.css";
 
 function SearchProducts({ value, onChange }) {
+  const SearchInput = "search" + (value ? " contains" : "")
+ 
+
   return (
     <div className="SearchProducts">
       <input
-        className="search"
+        className={SearchInput}
         type="text"
         value={value}
-        onChange={onChange}
+        onChange={(event)=>onChange(event.target.value)}
         placeholder="🔎 'Curved Monitor'"
       />
     </div>

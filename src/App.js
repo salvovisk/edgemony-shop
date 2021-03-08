@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import "./App.css";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -6,8 +7,7 @@ import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
-import SearchProducts from "./components/SearchProducts/SearchProducts";
-// import Footer from "./components/Footer/Footer";
+import { fetchProducts, fetchCatogories } from "./services/api";
 
 const data = {
   title: "Edgemony Shop",
@@ -19,23 +19,6 @@ const data = {
 };
 
 function App() {
-  // Search input Logic
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  useEffect(() => {
-    const results = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchTerm) ||
-        product.description.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
-
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -66,37 +49,22 @@ function App() {
   // Api data logic
 
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState("");
   const [retry, setRetry] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => {
-        const hasError = Math.random() > 1; /* TO CHANGE */
-        if (!hasError) {
-          setProducts(data);
-          setLoading(false);
-          setError("");
-        } else {
-          throw new Error("Product server API call response error");
-        }
+    setError("");
+    Promise.all([fetchProducts(), fetchCatogories()])
+      .then(([products, categories]) => {
+        setProducts(products);
+        setCategories(categories);
       })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   }, [retry]);
-
-  // ErrorBanner logic
-  const [errorBannerIsOpen, setErrorBannerIsOpen] = useState(true);
-
-  function closeBanner() {
-    setErrorBannerIsOpen(false);
-    console.log("test");
-  }
 
   return (
     <div className="App">
@@ -106,34 +74,28 @@ function App() {
         title={data.title}
         description={data.description}
       />
-      <SearchProducts value={searchTerm} onChange={handleChange} />
+
       {isLoading ? (
         <Loader />
-      ) : (
-        !isError && (
-          <>
-            <ProductsSection
-              products={searchResults[0] ? searchResults : products}
-              openProductModal={openProductModal}
-            />
-          </>
-        )
-      )}
-
-      {isError && (
+      ) : isError ? (
         <ErrorProduct
-          retry={retry}
-          setRetry={setRetry}
-          isOpen={errorBannerIsOpen}
-          closeBanner={closeBanner}
+          message={isError}
+          close={() => setError("")}
+          retry={() => setRetry(!retry)}
+        />
+      ) : (
+        <ProductsSection
+          products={products}
+          categories={categories}
+          openProductModal={openProductModal}
         />
       )}
+
       <ModalProduct
         isOpen={modalIsOpen}
         content={productInModal}
         closeModal={closeModal}
       />
-      {/* <Footer /> */}
     </div>
   );
 }

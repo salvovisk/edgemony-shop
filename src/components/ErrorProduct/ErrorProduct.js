@@ -1,9 +1,9 @@
 import "./ErrorProduct.css";
 
-function ErrorProduct({ retry, setRetry, closeBanner, isOpen }) {
+function ErrorProduct({ message, retry, setRetry, closeBanner, isOpen }) {
   return (
     <div className={`ErrorProduct ${!isOpen ? `isClosed` : ""}`}>
-      <h2>Ops! Non siamo riusciti a caricare i prodotti</h2>
+      <h2>{message}</h2>
       <button className="reloadBtn" onClick={() => setRetry(!retry)}>
         Riprova
       </button>

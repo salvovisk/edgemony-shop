@@ -1,14 +1,14 @@
 .SearchProducts {
   width: 100vw;
-  height: 6vh;
+  height: 10vh;
   display: inline-flex;
   align-items: center;
-  margin-top: 25px;
+  justify-content: center;
 }
 
 .search {
-  width: 40px;
-  margin-left: 45px;
+  font-size: 1.5rem;
+  width: 55px;
   outline: none;
   padding: 5px 10px;
   border-radius: 5px;
@@ -18,12 +18,24 @@
   border: 0.1px solid rgba(25, 25, 25, 0.4);
 }
 
+.search.contains {
+  width: 70vw;
+}
+
 .search:active,
 .search:focus {
   width: 70vw;
 }
 
 @media (min-width: 768px) {
+  .SearchProducts {
+    margin-top: 25px;
+  }
+
+  .search.contains {
+    width: 350px;
+  }
+
   .search:active,
   .search:focus {
     width: 350px;
