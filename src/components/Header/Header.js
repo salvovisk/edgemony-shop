@@ -1,4 +1,6 @@
 import "./Header.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function Header({ logo, isInCart }) {
   function totalOfCart() {
@@ -16,9 +18,15 @@ function Header({ logo, isInCart }) {
   return (
     <header className="Header">
       <img src={logo} alt="headerLogo" className="logo" />
-      <span style={{ color: "white" }}>
-        {isInCart.length > 0 && isInCart.length}
-        {isInCart.length > 0 && <h6>€ {totalOfCart()}</h6>}
+
+      <span className="priceCart">
+        {isInCart.length > 0 && <h6>{` €${totalOfCart()}`}</h6>}
+      </span>
+      <span className="cartIcon">
+        <FontAwesomeIcon icon={faShoppingCart} className="faiconcart" />
+        <span className="badgeCart">
+          {/* isInCart.length > 0 && i */ isInCart.length}
+        </span>
       </span>
     </header>
   );

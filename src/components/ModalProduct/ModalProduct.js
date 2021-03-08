@@ -1,7 +1,7 @@
 import "./ModalProduct.css";
 
 function ModalProduct({ content, closeModal, isOpen, isInCart, addToCart }) {
-
+  
   function addtoCart() {
     if (!isInCart.includes(content)) {
       addToCart([...isInCart, content]);
@@ -30,7 +30,7 @@ function ModalProduct({ content, closeModal, isOpen, isInCart, addToCart }) {
               <span>
                 <button
                   id={content.id}
-                  className="detailsBtn"
+                  className="handleCartBtn"
                   onClick={addtoCart}
                 >
                   {" "}

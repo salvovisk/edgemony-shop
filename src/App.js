@@ -23,8 +23,7 @@ function App() {
   // Shopping Cart Logic
   const [isInCart, setInCart] = useState([]);
 
-  console.log(isInCart);
-
+ 
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
