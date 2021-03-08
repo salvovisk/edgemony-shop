@@ -1,13 +1,13 @@
 import "./ErrorProduct.css";
 
-function ErrorProduct({ message, retry, setRetry, closeBanner, isOpen }) {
+function ErrorProduct({ message, retry, close }) {
   return (
-    <div className={`ErrorProduct ${!isOpen ? `isClosed` : ""}`}>
+    <div className="ErrorProduct">
       <h2>{message}</h2>
-      <button className="reloadBtn" onClick={() => setRetry(!retry)}>
+      <button type="button" className="reloadBtn" onClick={() => retry()}>
         Riprova
       </button>
-      <button className="closeErrorBtn" type="button" onClick={closeBanner}>
+      <button type="button" className="closeErrorBtn" onClick={() => close()}>
         {" "}
         ✖️{" "}
       </button>
