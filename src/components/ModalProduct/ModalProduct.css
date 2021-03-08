@@ -155,7 +155,6 @@
   }
 
   .descriptionModal {
-    max-height: 12rem;
     font-size: 1rem;
     display: -webkit-box;
     -webkit-line-clamp: 10;

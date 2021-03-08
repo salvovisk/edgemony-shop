@@ -7,7 +7,6 @@
   margin-top: 25px;
   flex-grow: 0;
   align-self: flex-start;
-
 }
 
 .Hero img {
@@ -45,13 +44,12 @@
     background-color: rgba(0, 0, 0, 0.7);
     width: 95vw;
     height: 20vh;
-    
   }
 
   .Hero img {
     height: 40vh;
     width: 95vw;
-    object-fit: none;
+    object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px rgba(25, 25, 25, 0.2);
   }
