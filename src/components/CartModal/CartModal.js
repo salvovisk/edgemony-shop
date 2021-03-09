@@ -9,6 +9,7 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
     setCart(newCart);
   };
 
+
   return (
     <div className={`CartModal ${isOpen ? `isOpen` : ""}`}>
       <div className="CartModalWrapper">
@@ -25,7 +26,7 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
                 <img src={item.image} alt="productimg" />
                 <div className="CartModalContent">
                   <h4>Shirt Orange</h4>
-                  <span className="CardQty">
+                  {/* <span className="CardQty">
                     {" "}
                     <h4>Qty.</h4>
                     <FontAwesomeIcon
@@ -33,8 +34,12 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
                       className="faiconqty"
                     />{" "}
                     <h4>{item.quantity}</h4>{" "}
-                    <FontAwesomeIcon icon={faPlus} className="faiconqty" />{" "}
-                  </span>
+                    <FontAwesomeIcon
+                      // onClick={() => addQty(item.id)}
+                      icon={faPlus}
+                      className="faiconqty"
+                    />{" "}
+                  </span> */}
                   <h4>Price: {item.price * item.quantity} €</h4>
                   <button
                     className="removeCartBtn"
@@ -47,7 +52,7 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
             );
           })}
         </div>
-      <footer className="CartModalFooter"> Total: {totalPrice} €</footer>
+        <footer className="CartModalFooter"> Total: {totalPrice} €</footer>
       </div>
     </div>
   );
