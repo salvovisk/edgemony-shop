@@ -27,6 +27,7 @@
 .faiconcart {
   color: white;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .badgeCart {

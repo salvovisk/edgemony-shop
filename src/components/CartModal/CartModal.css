@@ -22,6 +22,7 @@
 }
 
 .CartModalWrapper {
+  padding-bottom: 5vh;
   width: 95vw;
   border-radius: 8px;
   display: flex;
@@ -32,7 +33,7 @@
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transform: translateX(600px);
-  transition:opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 .CartModal.isOpen .CartModalWrapper {
@@ -172,4 +173,32 @@
   font-weight: bold;
   position: fixed;
   bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .CartModal {
+    justify-content: flex-end;
+  }
+
+  .CartModalWrapper {
+    width: 520px;
+  }
+
+  .CartModalBody img {
+    margin: 0;
+  }
+
+  .ProductInCart {
+    height: 250px;
+    max-width: 520px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .CartModalContent {
+    width: fit-content;
+  }
 }
