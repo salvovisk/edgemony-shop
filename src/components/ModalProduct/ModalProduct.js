@@ -10,10 +10,9 @@ function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
       const newCart = cart.filter((product) => product.id !== content.id);
       setCart(newCart);
     } else {
-      setCart([{ id: content.id, quantity: 1 }, ...cart]);
+      setCart([{ ...content, quantity: 1 }, ...cart]);
     }
   };
-
 
   return (
     <div className={`ModalProduct ${isOpen ? `isOpen` : ""}`}>
