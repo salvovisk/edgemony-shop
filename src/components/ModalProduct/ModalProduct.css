@@ -106,7 +106,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
+  justify-content: space-around;
   padding: 0 15px;
 }
 
@@ -148,15 +148,23 @@
   text-decoration: none;
   font-family: "Lato", sans-serif;
   text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-.handleCartBtn:hover,
-:active,
-:focus {
+.handleCartBtn:hover {
+  background: #0053ba;
+  cursor: pointer;
+}
+
+.handleCartBtn:focus {
   outline: none;
 }
 
-
+.handleCartBtn:active {
+  transform: scale(0.9);
+}
 
 .modalTextContent h6 {
   font-weight: 400;

@@ -1,8 +1,10 @@
 import "./ModalProduct.css";
 
 function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
+  // function to check if a product is already in the cart and toggle for the button
   const isAlreadyInCart = () =>
     cart.find((product) => product.id === content.id);
+
   const toggleCart = () => {
     if (isAlreadyInCart()) {
       const newCart = cart.filter((product) => product.id !== content.id);
@@ -12,14 +14,6 @@ function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
     }
   };
 
-  const currentQuantity = () => {
-    const found = cart.find((cartItem) => cartItem.id === content.id);
-    if (found) {
-      return found.quantity;
-    } else {
-      return 0;
-    }
-  };
 
   return (
     <div className={`ModalProduct ${isOpen ? `isOpen` : ""}`}>
@@ -45,11 +39,6 @@ function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
                 >
                   {isAlreadyInCart() ? `Remove from Cart` : `Add to Cart`}
                 </button>
-                <span className="qtyCart">
-                  <button type="button">-</button>
-                  <span>{currentQuantity()}</span>
-                  <button type="button">+</button>
-                </span>
                 <h6>Price: </h6>€ {content.price}
               </span>
             </div>
