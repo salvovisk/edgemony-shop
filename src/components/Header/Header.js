@@ -2,13 +2,8 @@ import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-function Header({ logo, cart, products, openCartModal }) {
-  const totalPrice = cart
-    .reduce((acc, cartItem) => {
-      const product = products.find((product) => product.id === cartItem.id);
-      return acc + product.price;
-    }, 0)
-    .toFixed(2);
+function Header({ logo, cart, openCartModal, totalPrice }) {
+
 
   return (
     <header className="Header">

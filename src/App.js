@@ -21,44 +21,6 @@ const data = {
 };
 
 function App() {
-  // Shopping Cart Logic
-  const [cart, setCart] = useState([]);
-
-  // // Modal Logic
-  const [productInModal, setProductInModal] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  function openProductModal(product) {
-    setProductInModal(product);
-    setModalIsOpen(true);
-  }
-
-  function closeModal() {
-    setModalIsOpen(false);
-    setTimeout(() => {
-      setProductInModal(null);
-    }, 500);
-  }
-
-  useEffect(() => {
-    if (modalIsOpen) {
-      document.body.style.overflow = `hidden`;
-    } else {
-      document.body.style.overflow = ``;
-    }
-  }, [modalIsOpen]);
-  
-  // CartModal Logic
-  const [cartIsOpen, setCartIsOpen] = useState(false);
-
-  function openCartModal() {
-    setCartIsOpen(true);
-  }
-
-  function closeCartModal() {
-    setCartIsOpen(false);
-  }
-
   // Api data logic
 
   const [products, setProducts] = useState([]);
@@ -79,6 +41,64 @@ function App() {
       .finally(() => setLoading(false));
   }, [retry]);
 
+  // Shopping Cart Logic
+  const [cart, setCart] = useState([]);
+
+  // totalPrice of items in the cart
+  const totalPrice = cart
+    .reduce((acc, cartItem) => {
+      const product = products.find((product) => product.id === cartItem.id);
+      return acc + product.price;
+    }, 0)
+    .toFixed(2);
+
+  // CartModal Logic
+  const [cartIsOpen, setCartIsOpen] = useState(false);
+
+  function openCartModal() {
+    setCartIsOpen(true);
+  }
+
+  function closeCartModal() {
+    setCartIsOpen(false);
+  }
+
+  useEffect(() => {
+    if (cartIsOpen) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [cartIsOpen]);
+
+  // // Modal Logic
+  const [productInModal, setProductInModal] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function openProductModal(product) {
+    setProductInModal(product);
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+    setTimeout(() => {
+      setProductInModal(null);
+    }, 500);
+  }
+  
+  useEffect(() => {
+    if (modalIsOpen) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [modalIsOpen]);
+
   return (
     <div className="App">
       <Header
@@ -86,8 +106,16 @@ function App() {
         cart={cart}
         products={products}
         openCartModal={() => openCartModal()}
+        totalPrice={totalPrice}
       />
-      <CartModal isOpen={cartIsOpen} closeCartModal={() => closeCartModal()} />
+      <CartModal
+        isOpen={cartIsOpen}
+        closeCartModal={() => closeCartModal()}
+        totalPrice={totalPrice}
+        cart={cart}
+        setCart={setCart}
+        products={products}
+      />
       <Hero
         cover={data.cover}
         title={data.title}
