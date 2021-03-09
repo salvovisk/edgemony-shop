@@ -9,6 +9,7 @@ import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
+import CartModal from "./components/CartModal/CartModal"
 
 const data = {
   title: "Edgemony Shop",
@@ -70,7 +71,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header logo={data.logo} cart={cart} products={products} />
+      <Header logo={ data.logo } cart={ cart } products={ products } />
+      <CartModal/>
       <Hero
         cover={data.cover}
         title={data.title}
