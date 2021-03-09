@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
-function CartModal() {
+function CartModal({ isOpen, closeCartModal }) {
   return (
-    <div className="CartModal">
+    <div className={`CartModal ${isOpen ? `isOpen` : ""}`}>
       <div className="CartModalWrapper">
         <header className="CartModalHeader">
-          <button className="CartModalCloseBtn">✖️</button>
+          <button className="CartModalCloseBtn" onClick={closeCartModal}>
+            ✖️
+          </button>
           <h3>Cart</h3>
         </header>
         <div className="CartModalBody">

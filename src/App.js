@@ -9,7 +9,7 @@ import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
-import CartModal from "./components/CartModal/CartModal"
+import CartModal from "./components/CartModal/CartModal";
 
 const data = {
   title: "Edgemony Shop",
@@ -29,7 +29,6 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function openProductModal(product) {
-    // console.log(product);
     setProductInModal(product);
     setModalIsOpen(true);
   }
@@ -48,6 +47,17 @@ function App() {
       document.body.style.overflow = ``;
     }
   }, [modalIsOpen]);
+  
+  // CartModal Logic
+  const [cartIsOpen, setCartIsOpen] = useState(false);
+
+  function openCartModal() {
+    setCartIsOpen(true);
+  }
+
+  function closeCartModal() {
+    setCartIsOpen(false);
+  }
 
   // Api data logic
 
@@ -71,8 +81,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header logo={ data.logo } cart={ cart } products={ products } />
-      <CartModal/>
+      <Header
+        logo={data.logo}
+        cart={cart}
+        products={products}
+        openCartModal={() => openCartModal()}
+      />
+      <CartModal isOpen={cartIsOpen} closeCartModal={() => closeCartModal()} />
       <Hero
         cover={data.cover}
         title={data.title}

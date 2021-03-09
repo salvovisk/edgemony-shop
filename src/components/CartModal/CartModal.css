@@ -11,6 +11,14 @@
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.8);
   overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.CartModal.isOpen {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .CartModalWrapper {
@@ -22,6 +30,14 @@
   align-items: center;
   min-height: 100%;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(600px);
+  transition:opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.CartModal.isOpen .CartModalWrapper {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .CartModalHeader {
@@ -117,7 +133,7 @@
   cursor: pointer;
   width: fit-content;
   height: 30px;
-  background-color: rgba(206, 49, 49,0.6);
+  background-color: rgba(206, 49, 49, 0.6);
   border: none;
   border-radius: 5px;
   color: white;
@@ -130,7 +146,7 @@
 }
 
 .removeCartBtn:hover {
-  background-color: rgba(206, 49, 49,1);
+  background-color: rgba(206, 49, 49, 1);
 
   cursor: pointer;
 }
