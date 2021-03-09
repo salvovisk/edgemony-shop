@@ -9,6 +9,7 @@
 .App {
   font-family: "Lato", sans-serif;
   min-height: 100vh;  
+  padding-top: 10vh;
 }
 
 @media (min-width: 768px) {

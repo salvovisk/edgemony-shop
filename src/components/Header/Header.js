@@ -2,31 +2,26 @@ import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-function Header({ logo, isInCart }) {
-  function totalOfCart() {
-    const total = isInCart.map((obj) => {
-      return obj.price;
-    });
+function Header({ logo, cart, products }) {
 
-    // console.log(typeof total[0]);
-    if (total.length > 0) {
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      return total.reduce(reducer);
-    }
-  }
+
+  const totalPrice = cart
+    .reduce((acc, cartItem) => {
+      const product = products.find(product => product.id === cartItem.id)
+      return acc + product.price;
+    }, 0)
+    .toFixed(2);
 
   return (
     <header className="Header">
       <img src={logo} alt="headerLogo" className="logo" />
 
       <span className="priceCart">
-        {isInCart.length > 0 && <h6>{` €${totalOfCart()}`}</h6>}
+        {!!cart.length && <h6>{` €${totalPrice}`}</h6>}
       </span>
       <span className="cartIcon">
         <FontAwesomeIcon icon={faShoppingCart} className="faiconcart" />
-        <span className="badgeCart">
-          {/* isInCart.length > 0 && i */ isInCart.length}
-        </span>
+        {!!cart.length && <span className="badgeCart"> {cart.length}</span>}
       </span>
     </header>
   );

@@ -21,9 +21,8 @@ const data = {
 
 function App() {
   // Shopping Cart Logic
-  const [isInCart, setInCart] = useState([]);
+  const [cart, setCart] = useState([]);
 
- 
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -43,10 +42,8 @@ function App() {
 
   useEffect(() => {
     if (modalIsOpen) {
-      document.body.style.height = `100vh`;
       document.body.style.overflow = `hidden`;
     } else {
-      document.body.style.height = ``;
       document.body.style.overflow = ``;
     }
   }, [modalIsOpen]);
@@ -73,7 +70,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header logo={data.logo} isInCart={isInCart} />
+      <Header logo={data.logo} cart={cart} products={products} />
       <Hero
         cover={data.cover}
         title={data.title}
@@ -97,8 +94,8 @@ function App() {
       )}
 
       <ModalProduct
-        isInCart={isInCart}
-        addToCart={setInCart}
+        cart={cart}
+        setCart={setCart}
         isOpen={modalIsOpen}
         content={productInModal}
         closeModal={closeModal}
