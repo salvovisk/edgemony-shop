@@ -202,4 +202,9 @@
   .CartModalContent {
     width: fit-content;
   }
+
+  .CartModalFooter {
+    width: 520px;
+    height: 8vh;
+  }
 }
