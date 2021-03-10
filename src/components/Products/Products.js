@@ -1,4 +1,5 @@
 import "./Products.css";
+import { formatPrice } from "./../../services/utils";
 
 function Products({ product, openProductModal }) {
   return (
@@ -8,7 +9,7 @@ function Products({ product, openProductModal }) {
         <h4 className="titleProduct">{product.title}</h4>
         <span className="priceAndBtn">
           {" "}
-          € {product.price}
+          {formatPrice(product.price)}
           <button className="detailsBtn" onClick={openProductModal}>
             View Details
           </button>

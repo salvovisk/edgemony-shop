@@ -22,6 +22,7 @@
 }
 
 .CartModalWrapper {
+  margin-right: -50px;
   padding-bottom: 5vh;
   width: 95vw;
   border-radius: 8px;
@@ -111,6 +112,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.CartItemTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  max-width: 180px;
 }
 
 .CartModalContent h4 {

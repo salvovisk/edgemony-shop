@@ -43,14 +43,17 @@ function App() {
 
   // Shopping Cart Logic
   const [cart, setCart] = useState([]);
-  
+
+  // const cartProducts = cart.map((cartItem) => {
+  //   const product = products.find((product) => product.id === cartItem.id);
+  // });
+
   // totalPrice of items in the cart
   const totalPrice = cart
     .reduce((acc, cartItem) => {
       const product = cart.find((product) => product.id === cartItem.id);
       return acc + product.price * product.quantity;
-    }, 0)
-    .toFixed(2);
+    }, 0);
 
   // CartModal Logic
   const [cartIsOpen, setCartIsOpen] = useState(false);

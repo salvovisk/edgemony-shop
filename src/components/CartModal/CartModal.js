@@ -2,13 +2,16 @@ import "./CartModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { formatPrice } from "./../../services/utils";
 
 function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
+  // Logic to interact with cart
   const removeFromCart = (item) => {
     const newCart = cart.filter((product) => product.id !== item.id);
     setCart(newCart);
   };
 
+  // to modify quantities in the cart
   const addQty = (product) => {
     const newCart = cart.filter((item) => item.id !== product.id);
     setCart([{ quantity: product.quantity++, ...product }, ...newCart]);
@@ -42,7 +45,7 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
               <div key={item.id} className="ProductInCart">
                 <img src={item.image} alt="productimg" />
                 <div className="CartModalContent">
-                  <h4>Shirt Orange</h4>
+                  <h4 className="CartItemTitle">{item.title}</h4>
                   <span className="CardQty">
                     {" "}
                     <h4>Qty.</h4>
@@ -58,7 +61,7 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
                       className="faiconqty"
                     />{" "}
                   </span>
-                  <h4>Price: {item.price /* * item.quantity */} €</h4>
+                  <h4>Price: {formatPrice(item.price)}</h4>
                   <button
                     className="removeCartBtn"
                     onClick={() => removeFromCart(item)}
@@ -70,7 +73,10 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
             );
           })}
         </div>
-        <footer className="CartModalFooter"> Total: {totalPrice} €</footer>
+        <footer className="CartModalFooter">
+          {" "}
+          Total: {formatPrice(totalPrice)}
+        </footer>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import "./ModalProduct.css";
+import { formatPrice } from './../../services/utils';
 
 function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
   // function to check if a product is already in the cart and toggle for the button
@@ -38,7 +39,7 @@ function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
                 >
                   {isAlreadyInCart() ? `Remove from Cart` : `Add to Cart`}
                 </button>
-                <h6>Price: </h6>€ {content.price}
+                <h6>Price: </h6>{formatPrice(content.price)}
               </span>
             </div>
           </div>
