@@ -1,4 +1,4 @@
-.CartModal {
+.Cart {
   z-index: 5;
   position: fixed;
   top: 0;
@@ -16,12 +16,12 @@
   transition: opacity 0.5s ease-in-out;
 }
 
-.CartModal.isOpen {
+.Cart.isOpen {
   opacity: 1;
   pointer-events: auto;
 }
 
-.CartModalWrapper {
+.CartWrapper {
   padding-bottom: 5vh;
   width: 95vw;
   border-radius: 8px;
@@ -36,12 +36,12 @@
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
-.CartModal.isOpen .CartModalWrapper {
+.Cart.isOpen .CartWrapper {
   opacity: 1;
   transform: translateX(0);
 }
 
-.CartModalHeader {
+.CartHeader {
   font-size: 1.5rem;
   width: 100%;
   height: 5vh;
@@ -51,7 +51,7 @@
   border-bottom: 1px solid black;
 }
 
-.CartModalCloseBtn {
+.CartCloseBtn {
   margin: 0 auto 0 5px;
   background-color: none;
   border: none;
@@ -60,35 +60,35 @@
   transition: all 0.35s ease-in-out;
 }
 
-.CartModalCloseBtn,
-.CartModalCloseBtn:focus {
+.CartCloseBtn,
+.CartCloseBtn:focus {
   outline: none;
   background: transparent;
   border: 1px solid transparent;
 }
 
-.CartModalCloseBtn:active {
+.CartCloseBtn:active {
   outline: none;
   background: transparent;
 }
 
-.CartModalCloseBtn:hover {
+.CartCloseBtn:hover {
   opacity: 1;
   transform: rotate(90deg);
 }
 
-.CartModalHeader h3 {
+.CartHeader h3 {
   position: absolute;
 }
 
-.CartModalBody {
+.CartBody {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.CartModalBody img {
+.CartBody img {
   margin-top: 18px;
   width: 50%;
   height: 50%;
@@ -105,7 +105,7 @@
   border-bottom: 1px solid black;
 }
 
-.CartModalContent {
+.CartContent {
   width: 90vw;
   display: flex;
   flex-direction: column;
@@ -122,7 +122,7 @@
   max-width: 180px;
 }
 
-.CartModalContent h4 {
+.CartContent h4 {
   margin: 4px 0;
 }
 
@@ -189,7 +189,7 @@
   transform: scale(0.9);
 }
 
-.CartModalFooter {
+.CartFooter {
   height: 6vh;
   background-color: white;
   border-bottom-left-radius: 10px;
@@ -205,16 +205,16 @@
 }
 
 @media (min-width: 768px) {
-  .CartModal {
+  .Cart {
     justify-content: flex-end;
   }
 
-  .CartModalWrapper {
+  .CartWrapper {
     margin-right: -50px;
     width: 520px;
   }
 
-  .CartModalBody img {
+  .CartBody img {
     margin: 0;
   }
 
@@ -228,11 +228,11 @@
     flex-wrap: nowrap;
   }
 
-  .CartModalContent {
+  .CartContent {
     width: fit-content;
   }
 
-  .CartModalFooter {
+  .CartFooter {
     width: 520px;
     height: 8vh;
   }

@@ -9,7 +9,9 @@ import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
-import CartModal from "./components/CartModal/CartModal";
+import Cart from "./components/Cart/Cart";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Main from "./containers/Main";
 
 const data = {
   title: "Edgemony Shop",
@@ -109,35 +111,40 @@ function App() {
         openCartModal={() => setCartIsOpen(true)}
         totalPrice={totalPrice}
       />
-      <CartModal
-        products={cartProducts}
+      <Sidebar
         isOpen={cartIsOpen}
         close={() => setCartIsOpen(false)}
-        totalPrice={totalPrice}
-        removeFromCart={removeFromCart}
-        setProductQuantity={setProductQuantity}
-      />
-      <Hero
-        cover={data.cover}
-        title={data.title}
-        description={data.description}
-      />
-
-      {isLoading ? (
-        <Loader />
-      ) : isError ? (
-        <ErrorProduct
-          message={isError}
-          close={() => setError("")}
-          retry={() => setRetry(!retry)}
+        title={"Cart"}
+      >
+        <Cart
+          products={cartProducts}
+          totalPrice={totalPrice}
+          removeFromCart={removeFromCart}
+          setProductQuantity={setProductQuantity}
         />
-      ) : (
-        <ProductsSection
-          products={products}
-          categories={categories}
-          openProductModal={openProductModal}
+      </Sidebar>
+      <Main>
+        <Hero
+          cover={data.cover}
+          title={data.title}
+          description={data.description}
         />
-      )}
+        {isLoading ? (
+          <Loader />
+        ) : isError ? (
+          <ErrorProduct
+            message={isError}
+            close={() => setError("")}
+            retry={() => setRetry(!retry)}
+          />
+        ) : (
+          <ProductsSection
+            products={products}
+            categories={categories}
+            openProductModal={openProductModal}
+          />
+        )}
+      </Main>
 
       <ModalProduct
         inCart={isInCart(productInModal)}
