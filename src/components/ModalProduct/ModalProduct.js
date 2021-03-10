@@ -1,17 +1,20 @@
 import "./ModalProduct.css";
-import { formatPrice } from './../../services/utils';
+import { formatPrice } from "./../../services/utils";
 
-function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
+function ModalProduct({
+  content,
+  closeModal,
+  isOpen,
+  inCart,
+  addToCart,
+  removeFromCart,
+}) {
   // function to check if a product is already in the cart and toggle for the button
-  const isAlreadyInCart = () =>
-    cart.find((product) => product.id === content.id);
-
   const toggleCart = () => {
-    if (isAlreadyInCart()) {
-      const newCart = cart.filter((product) => product.id !== content.id);
-      setCart(newCart);
+    if (inCart) {
+      removeFromCart(content.id);
     } else {
-      setCart([{ ...content, quantity: 1 }, ...cart]);
+      addToCart(content.id);
     }
   };
 
@@ -33,13 +36,13 @@ function ModalProduct({ content, closeModal, isOpen, cart, setCart }) {
               <span>
                 <button
                   type="button"
-                  id={content.id}
                   className="handleCartBtn"
                   onClick={toggleCart}
                 >
-                  {isAlreadyInCart() ? `Remove from Cart` : `Add to Cart`}
+                  {inCart ? `Remove from Cart` : `Add to Cart`}
                 </button>
-                <h6>Price: </h6>{formatPrice(content.price)}
+                <h6>Price: </h6>
+                {formatPrice(content.price)}
               </span>
             </div>
           </div>

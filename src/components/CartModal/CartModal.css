@@ -22,7 +22,6 @@
 }
 
 .CartModalWrapper {
-  margin-right: -50px;
   padding-bottom: 5vh;
   width: 95vw;
   border-radius: 8px;
@@ -133,6 +132,25 @@
   align-items: baseline;
 }
 
+.qtyBtn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.qtyBtn:disabled {
+  cursor: not-allowed;
+}
+
+.qtyBtn:disabled > .faiconqty {
+  color: grey;
+  cursor: not-allowed;
+}
+
 .faiconqty {
   cursor: pointer;
   font-size: 0.8rem;
@@ -192,6 +210,7 @@
   }
 
   .CartModalWrapper {
+    margin-right: -50px;
     width: 520px;
   }
 

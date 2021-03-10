@@ -44,37 +44,35 @@ function App() {
   // Shopping Cart Logic
   const [cart, setCart] = useState([]);
 
-  // const cartProducts = cart.map((cartItem) => {
-  //   const product = products.find((product) => product.id === cartItem.id);
-  // });
-
-  // totalPrice of items in the cart
-  const totalPrice = cart
-    .reduce((acc, cartItem) => {
-      const product = cart.find((product) => product.id === cartItem.id);
-      return acc + product.price * product.quantity;
-    }, 0);
+  const cartProducts = cart.map((cartItem) => {
+    const { price, image, title, id } = products.find(
+      (p) => p.id === cartItem.id
+    );
+    return { price, image, title, id, quantity: cartItem.quantity };
+  });
+  const totalPrice = cartProducts.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+  function isInCart(product) {
+    return product != null && cart.find((p) => p.id === product.id) != null;
+  }
+  function addToCart(productId) {
+    setCart([...cart, { id: productId, quantity: 1 }]);
+  }
+  function removeFromCart(productId) {
+    setCart(cart.filter((product) => product.id !== productId));
+  }
+  function setProductQuantity(productId, quantity) {
+    setCart(
+      cart.map((product) =>
+        product.id === productId ? { ...product, quantity } : product
+      )
+    );
+  }
 
   // CartModal Logic
   const [cartIsOpen, setCartIsOpen] = useState(false);
-
-  function openCartModal() {
-    setCartIsOpen(true);
-  }
-
-  function closeCartModal() {
-    setCartIsOpen(false);
-  }
-
-  useEffect(() => {
-    if (cartIsOpen) {
-      document.body.style.height = `100vh`;
-      document.body.style.overflow = `hidden`;
-    } else {
-      document.body.style.height = ``;
-      document.body.style.overflow = ``;
-    }
-  }, [cartIsOpen]);
 
   // // Modal Logic
   const [productInModal, setProductInModal] = useState(null);
@@ -93,14 +91,14 @@ function App() {
   }
 
   useEffect(() => {
-    if (modalIsOpen) {
+    if (modalIsOpen || cartIsOpen) {
       document.body.style.height = `100vh`;
       document.body.style.overflow = `hidden`;
     } else {
       document.body.style.height = ``;
       document.body.style.overflow = ``;
     }
-  }, [modalIsOpen]);
+  }, [modalIsOpen, cartIsOpen]);
 
   return (
     <div className="App">
@@ -108,16 +106,16 @@ function App() {
         logo={data.logo}
         cart={cart}
         products={products}
-        openCartModal={() => openCartModal()}
+        openCartModal={() => setCartIsOpen(true)}
         totalPrice={totalPrice}
       />
       <CartModal
+        products={cartProducts}
         isOpen={cartIsOpen}
-        closeCartModal={() => closeCartModal()}
+        close={() => setCartIsOpen(false)}
         totalPrice={totalPrice}
-        cart={cart}
-        setCart={setCart}
-        products={products}
+        removeFromCart={removeFromCart}
+        setProductQuantity={setProductQuantity}
       />
       <Hero
         cover={data.cover}
@@ -142,8 +140,9 @@ function App() {
       )}
 
       <ModalProduct
-        cart={cart}
-        setCart={setCart}
+        inCart={isInCart(productInModal)}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
         isOpen={modalIsOpen}
         content={productInModal}
         closeModal={closeModal}
