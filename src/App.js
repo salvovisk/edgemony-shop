@@ -43,12 +43,12 @@ function App() {
 
   // Shopping Cart Logic
   const [cart, setCart] = useState([]);
-
+  
   // totalPrice of items in the cart
   const totalPrice = cart
     .reduce((acc, cartItem) => {
-      const product = products.find((product) => product.id === cartItem.id);
-      return acc + product.price;
+      const product = cart.find((product) => product.id === cartItem.id);
+      return acc + product.price * product.quantity;
     }, 0)
     .toFixed(2);
 
@@ -88,7 +88,7 @@ function App() {
       setProductInModal(null);
     }, 500);
   }
-  
+
   useEffect(() => {
     if (modalIsOpen) {
       document.body.style.height = `100vh`;

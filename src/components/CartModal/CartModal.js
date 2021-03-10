@@ -1,12 +1,30 @@
 import "./CartModal.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPlus } from "@fortawesome/free-solid-svg-icons";
-// import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
   const removeFromCart = (item) => {
     const newCart = cart.filter((product) => product.id !== item.id);
     setCart(newCart);
+  };
+
+  const addQty = (product) => {
+    const newCart = cart.filter((item) => item.id !== product.id);
+    setCart([{ quantity: product.quantity++, ...product }, ...newCart]);
+  };
+
+  const minusQty = (product) => {
+    if (product.quantity === 1) {
+      const newCart = cart.filter((item) => item.id !== product.id);
+
+      setCart([{ quantity: product.quantity--, ...product }, ...newCart]);
+      removeFromCart(product);
+    } else {
+      const newCart = cart.filter((item) => item.id !== product.id);
+
+      setCart([{ quantity: product.quantity--, ...product }, ...newCart]);
+    }
   };
 
   return (
@@ -25,10 +43,11 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
                 <img src={item.image} alt="productimg" />
                 <div className="CartModalContent">
                   <h4>Shirt Orange</h4>
-                  {/* <span className="CardQty">
+                  <span className="CardQty">
                     {" "}
                     <h4>Qty.</h4>
                     <FontAwesomeIcon
+                      onClick={() => minusQty(item)}
                       icon={faMinus}
                       className="faiconqty"
                     />{" "}
@@ -38,7 +57,7 @@ function CartModal({ isOpen, closeCartModal, totalPrice, cart, setCart }) {
                       icon={faPlus}
                       className="faiconqty"
                     />{" "}
-                  </span> */}
+                  </span>
                   <h4>Price: {item.price /* * item.quantity */} €</h4>
                   <button
                     className="removeCartBtn"
