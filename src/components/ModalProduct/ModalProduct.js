@@ -1,5 +1,15 @@
-import "./ModalProduct.css";
 import { formatPrice } from "./../../services/utils";
+import {
+  ModalOfProduct,
+  Overlay,
+  ModalProductBody,
+  CloseBtn,
+  ModalProductContent,
+  ModalProductTextContent,
+  DefaultBlueBtn,
+  ModalProductImg,
+  ModalProductDescription,
+} from "../../styles/styles";
 
 function ModalProduct({
   content,
@@ -19,36 +29,37 @@ function ModalProduct({
   };
 
   return (
-    <div className={`ModalProduct ${isOpen ? `isOpen` : ""}`}>
-      <div className="overlay" onClick={closeModal} />
-      <div className="body">
-        <span className="btnSpan">
-          <button className="closeBtn" type="button" onClick={closeModal}>
-            ✖️
-          </button>
-        </span>
+    <ModalOfProduct isOpen={isOpen}>
+      <Overlay isOpen={isOpen} onClick={closeModal} />
+      <ModalProductBody isOpen={isOpen}>
+        <CloseBtn type="button" onClick={closeModal}>
+          ✖️
+        </CloseBtn>
+
         {!!content ? (
-          <div className="modalContent">
-            <img src={content.image} alt="productImg" />
-            <div className="modalTextContent">
+          <ModalProductContent>
+            <ModalProductImg src={content.image} alt="productImg" />
+            <ModalProductTextContent>
               <h3>{content.title}</h3>
-              <p className="descriptionModal">{content.description}</p>
+              <ModalProductDescription>
+                {content.description}
+              </ModalProductDescription>
               <span>
-                <button
+                <DefaultBlueBtn
                   type="button"
                   className="handleCartBtn"
                   onClick={toggleCart}
                 >
                   {inCart ? `Remove from Cart` : `Add to Cart`}
-                </button>
+                </DefaultBlueBtn>
                 <h6>Price: </h6>
                 {formatPrice(content.price)}
               </span>
-            </div>
-          </div>
+            </ModalProductTextContent>
+          </ModalProductContent>
         ) : null}
-      </div>
-    </div>
+      </ModalProductBody>
+    </ModalOfProduct>
   );
 }
 

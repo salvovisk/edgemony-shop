@@ -1,16 +1,22 @@
+import {
+  SidebarContainer,
+  SidebarWrapper,
+  SidebarHeader,
+  SidebarTitle,
+  CloseBtn,
+} from "./../../styles/styles";
+
 function Sidebar({ isOpen, close, title, children }) {
   return (
-    <div className={`Cart ${isOpen ? `isOpen` : ""}`}>
-      <div className="CartWrapper">
-        <header className="CartHeader">
-          <button className="CartCloseBtn" onClick={close}>
-            ✖️
-          </button>
-          <h3>{title}</h3>
-        </header>
+    <SidebarContainer isOpen={isOpen}>
+      <SidebarWrapper isOpen={isOpen}>
+        <SidebarHeader>
+          <CloseBtn onClick={close}>✖️</CloseBtn>
+          <SidebarTitle>{title}</SidebarTitle>
+        </SidebarHeader>
         {children}
-      </div>
-    </div>
+      </SidebarWrapper>
+    </SidebarContainer>
   );
 }
 

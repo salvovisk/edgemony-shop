@@ -1,16 +1,16 @@
-import "./Loader.css"
+import { LoaderRing, LdsRing, LdsRingDiv } from "./../../styles/styles";
 
 function Loader() {
   return (
-    <div className="Loader">
-      <div className="lds-ring">
+    <LoaderRing>
+      <LdsRing>
+        <LdsRingDiv></LdsRingDiv>
         <div></div>
         <div></div>
         <div></div>
-        <div></div>
-      </div>
-    </div>
+      </LdsRing>
+    </LoaderRing>
   );
 }
 
-export default Loader
+export default Loader;

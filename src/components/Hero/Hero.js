@@ -1,16 +1,22 @@
-import "./Hero.css";
+import {
+  HeroContainer,
+  HeroWrapper,
+  HeroBackdrop,
+  HeroTitle,
+  HeroDescription,
+} from "./../../styles/styles";
 
 function Hero(props) {
   const { title, cover, description } = props;
 
   return (
-    <section className="Hero">
-      <img src={cover} alt="coverImage" />
-      <div>
-        <h1>{title}</h1>
-        <h2>{description}</h2>
-      </div>
-    </section>
+    <HeroContainer>
+      <HeroBackdrop src={cover} alt="coverImage" />
+      <HeroWrapper>
+        <HeroTitle>{title}</HeroTitle>
+        <HeroDescription>{description}</HeroDescription>
+      </HeroWrapper>
+    </HeroContainer>
   );
 }
 

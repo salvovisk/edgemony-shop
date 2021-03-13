@@ -1,3 +1,5 @@
-const Main = ({ children }) => <main>{children}</main>;
+import { Main } from "../styles/styles";
 
-export default Main;
+const MainSec = ({ children }) => <Main>{children}</Main>;
+
+export default MainSec;

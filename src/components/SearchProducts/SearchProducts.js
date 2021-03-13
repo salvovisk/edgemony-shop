@@ -1,20 +1,19 @@
-import "./SearchProducts.css";
-
+import { SearchProductsSect } from "../../styles/styles";
+import "./SearchProducts.css"
 
 function SearchProducts({ value, onChange }) {
-  const SearchInput = "search" + (value ? " contains" : "")
- 
+  const SearchInput = "search" + (value ? " contains" : "");
 
   return (
-    <div className="SearchProducts">
+    <SearchProductsSect>
       <input
         className={SearchInput}
         type="text"
         value={value}
-        onChange={(event)=>onChange(event.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         placeholder="🔎 'Curved Monitor'"
       />
-    </div>
+    </SearchProductsSect>
   );
 }
 

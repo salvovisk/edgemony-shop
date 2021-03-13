@@ -1,17 +1,22 @@
-import "./ErrorProduct.css";
+import {
+  ErrorBanner,
+  ErrorBannerMsg,
+  ErrorBannerReloadBtn,
+  ErrorBannerCloseBtn,
+} from "./../../styles/styles";
 
 function ErrorProduct({ message, retry, close }) {
   return (
-    <div className="ErrorProduct">
-      <h2>{message}</h2>
-      <button type="button" className="reloadBtn" onClick={() => retry()}>
+    <ErrorBanner>
+      <ErrorBannerMsg>{message}</ErrorBannerMsg>
+      <ErrorBannerReloadBtn type="button" onClick={() => retry()}>
         Riprova
-      </button>
-      <button type="button" className="closeErrorBtn" onClick={() => close()}>
+      </ErrorBannerReloadBtn>
+      <ErrorBannerCloseBtn type="button" onClick={() => close()}>
         {" "}
         ✖️{" "}
-      </button>
-    </div>
+      </ErrorBannerCloseBtn>
+    </ErrorBanner>
   );
 }
 
