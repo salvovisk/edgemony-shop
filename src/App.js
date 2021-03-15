@@ -6,11 +6,15 @@ import Hero from "./components/Hero/Hero";
 import ProductsSection from "./components/ProductsSection/ProductsSection";
 import Loader from "./components/Loader/Loader";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
-import ModalProduct from "./components/ModalProduct/ModalProduct";
+import ModalBodySidebar from "./components/ModalBodySidebar/ModalBodySidebar";
 import Cart from "./components/Cart/Cart";
-import Sidebar from "./components/Sidebar/Sidebar";
 import MainSec from "./containers/Main";
+import Modal from "./components/Modal/Modal";
+import ModalBodyCenter from "./components/ModalBodyCenter/ModalBodyCenter";
+import ModalProduct from "./components/ModalProduct/ModalProduct";
+
 import data from "./utilities/data";
+
 import { AppContainer } from "./styles/styles";
 
 function App() {
@@ -95,6 +99,32 @@ function App() {
 
   return (
     <AppContainer>
+      <Modal isOpen={cartIsOpen} onClose={() => setCartIsOpen(false)}>
+        <ModalBodySidebar
+          isOpen={cartIsOpen}
+          onClose={() => setCartIsOpen(false)}
+          title={"Cart"}
+        >
+          <Cart
+            products={cartProducts}
+            totalPrice={totalPrice}
+            removeFromCart={removeFromCart}
+            setProductQuantity={setProductQuantity}
+          />
+        </ModalBodySidebar>
+      </Modal>
+
+      <Modal isOpen={modalIsOpen} onClose={closeModal}>
+        <ModalBodyCenter isOpen={modalIsOpen} onClose={closeModal}>
+          <ModalProduct
+            inCart={isInCart(productInModal)}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            content={productInModal}
+          />
+        </ModalBodyCenter>
+      </Modal>
+
       <Header
         logo={data.logo}
         cart={cart}
@@ -102,26 +132,7 @@ function App() {
         openCartModal={() => setCartIsOpen(true)}
         totalPrice={totalPrice}
       />
-      <Sidebar
-        isOpen={cartIsOpen}
-        close={() => setCartIsOpen(false)}
-        title={"Cart"}
-      >
-        <Cart
-          products={cartProducts}
-          totalPrice={totalPrice}
-          removeFromCart={removeFromCart}
-          setProductQuantity={setProductQuantity}
-        />
-      </Sidebar>
-      <ModalProduct
-        inCart={isInCart(productInModal)}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
-        isOpen={modalIsOpen}
-        content={productInModal}
-        closeModal={closeModal}
-      />
+
       <MainSec>
         <Hero
           cover={data.cover}
