@@ -1,6 +1,5 @@
-import "./CategoriesFilter.css";
-
-import CategoryFilter from './../CategoryFilter.js/CategoryFilter';
+import CategoryFilter from "./../CategoryFilter.js/CategoryFilter";
+import { CategoriesFilterSection } from "../../styles/styles";
 
 function CategoriesFilter({
   categories,
@@ -8,7 +7,7 @@ function CategoriesFilter({
   onSelectCategory,
 }) {
   return (
-    <div className="CategoriesFilter">
+    <CategoriesFilterSection>
       {categories.map((category) => (
         <CategoryFilter
           key={category}
@@ -17,7 +16,7 @@ function CategoriesFilter({
           onSelectCategory={onSelectCategory}
         />
       ))}
-    </div>
+    </CategoriesFilterSection>
   );
 }
 

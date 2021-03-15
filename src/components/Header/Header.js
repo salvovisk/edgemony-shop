@@ -1,25 +1,33 @@
-import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { formatPrice } from "../../services/utils";
+import {
+  HeaderContainer,
+  HeaderLogo,
+  HeaderPriceCartContainer,
+  HeadercartIconSpan,
+  HeadercartBadge,
+} from "./../../styles/styles";
+
+import "./Header.css";
 
 function Header({ logo, cart, openCartModal, totalPrice }) {
   return (
-    <header className="Header">
-      <img src={logo} alt="headerLogo" className="logo" />
+    <HeaderContainer>
+      <HeaderLogo src={logo} alt="headerLogo" />
 
-      <span className="priceCart">
+      <HeaderPriceCartContainer>
         {!!cart.length && <h6>{formatPrice(totalPrice)}</h6>}
-      </span>
-      <span className="cartIcon">
+      </HeaderPriceCartContainer>
+      <HeadercartIconSpan>
         <FontAwesomeIcon
           onClick={openCartModal}
           icon={faShoppingCart}
           className="faiconcart"
         />
-        {!!cart.length && <span className="badgeCart"> {cart.length}</span>}
-      </span>
-    </header>
+        {!!cart.length && <HeadercartBadge> {cart.length}</HeadercartBadge>}
+      </HeadercartIconSpan>
+    </HeaderContainer>
   );
 }
 

@@ -2,6 +2,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { formatPrice } from "./../../services/utils";
+import {
+  ProductInCart,
+  ProductInCartImg,
+  CartContent,
+  CartContentTitle,
+  CartQty,
+  RemoveFromCart,
+} from "../../styles/styles";
+import "./CartProduct.css";
 
 function CartProduct({ product, removeFromCart, setProductQuantity }) {
   const { image, title, price, quantity, id } = product;
@@ -9,11 +18,11 @@ function CartProduct({ product, removeFromCart, setProductQuantity }) {
   const decrement = () => setProductQuantity(id, quantity - 1);
   const remove = () => removeFromCart(id);
   return (
-    <div key={id} className="ProductInCart">
-      <img src={image} alt={title} />
-      <div className="CartModalContent">
-        <h4 className="CartItemTitle">{title}</h4>
-        <span className="CardQty">
+    <ProductInCart key={id}>
+      <ProductInCartImg src={image} alt={title} />
+      <CartContent>
+        <CartContentTitle>{title}</CartContentTitle>
+        <CartQty>
           <h4>Qty.</h4>
           <button
             className="qtyBtn"
@@ -27,13 +36,11 @@ function CartProduct({ product, removeFromCart, setProductQuantity }) {
           <button className="qtyBtn" type="button" onClick={increment}>
             <FontAwesomeIcon icon={faPlus} className="faiconqty" />
           </button>
-        </span>
+        </CartQty>
         <h4>Price: {formatPrice(price)}</h4>
-        <button className="removeCartBtn" onClick={remove}>
-          Remove
-        </button>
-      </div>
-    </div>
+        <RemoveFromCart onClick={remove}>Remove</RemoveFromCart>
+      </CartContent>
+    </ProductInCart>
   );
 }
 

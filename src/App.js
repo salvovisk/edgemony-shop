@@ -1,5 +1,3 @@
-import "./App.css";
-
 import { useState, useEffect } from "react";
 import { fetchProducts, fetchCatogories } from "./services/api";
 
@@ -11,16 +9,9 @@ import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import ModalProduct from "./components/ModalProduct/ModalProduct";
 import Cart from "./components/Cart/Cart";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Main from "./containers/Main";
-
-const data = {
-  title: "Edgemony Shop",
-  description: "A fake e-commerce with a lot of potential",
-  logo:
-    "https://edgemony.com/wp-content/uploads/2020/03/cropped-Logo-edgemony_TeBIANCO-04.png",
-  cover:
-    "https://images.pexels.com/photos/4123897/pexels-photo-4123897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-};
+import MainSec from "./containers/Main";
+import data from "./utilities/data";
+import { AppContainer } from "./styles/styles";
 
 function App() {
   // Api data logic
@@ -103,7 +94,7 @@ function App() {
   }, [modalIsOpen, cartIsOpen]);
 
   return (
-    <div className="App">
+    <AppContainer>
       <Header
         logo={data.logo}
         cart={cart}
@@ -123,7 +114,7 @@ function App() {
           setProductQuantity={setProductQuantity}
         />
       </Sidebar>
-      <Main>
+      <MainSec>
         <Hero
           cover={data.cover}
           title={data.title}
@@ -144,7 +135,7 @@ function App() {
             openProductModal={openProductModal}
           />
         )}
-      </Main>
+      </MainSec>
 
       <ModalProduct
         inCart={isInCart(productInModal)}
@@ -154,7 +145,7 @@ function App() {
         content={productInModal}
         closeModal={closeModal}
       />
-    </div>
+    </AppContainer>
   );
 }
 

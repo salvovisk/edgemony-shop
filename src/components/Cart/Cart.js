@@ -1,5 +1,5 @@
-import "./Cart.css";
 import { formatPrice } from "../../services/utils";
+import { CartBody, CartFooter } from "../../styles/styles";
 import CartProduct from "../CartProduct/CartProduct";
 
 function Cart({
@@ -10,7 +10,7 @@ function Cart({
 }) {
   return (
     <>
-      <div className="CartBody">
+      <CartBody>
         {products.length > 0 ? (
           products.map((product) => (
             <CartProduct
@@ -23,11 +23,11 @@ function Cart({
         ) : (
           <p className="Cart__content__empty">The cart is empty</p>
         )}
-      </div>
-      <footer className="CartFooter">
+      </CartBody>
+      <CartFooter>
         {" "}
         Total: {formatPrice(totalPrice)}
-      </footer>
+      </CartFooter>
     </>
   );
 }

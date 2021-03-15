@@ -1,4 +1,5 @@
-import "./CategoryFilter.css";
+import "./CategoryFilter.css"
+
 
 function CategoryFilter({ name, selectedCategories, onSelectCategory }) {
   const isSelected = selectedCategories.includes(name);

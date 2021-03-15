@@ -1,11 +1,3 @@
-.SearchProducts {
-  width: 100vw;
-  height: 10vh;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .search {
   font-size: 1.5rem;
   width: 55px;
@@ -28,10 +20,6 @@
 }
 
 @media (min-width: 768px) {
-  .SearchProducts {
-    margin-top: 25px;
-  }
-
   .search.contains {
     width: 350px;
   }
