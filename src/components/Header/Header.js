@@ -15,7 +15,6 @@ function Header({ logo, cart, openCartModal, totalPrice }) {
   return (
     <HeaderContainer>
       <HeaderLogo src={logo} alt="headerLogo" />
-
       <HeaderPriceCartContainer>
         {!!cart.length && <h6>{formatPrice(totalPrice)}</h6>}
       </HeaderPriceCartContainer>

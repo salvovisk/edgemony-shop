@@ -114,6 +114,14 @@ function App() {
           setProductQuantity={setProductQuantity}
         />
       </Sidebar>
+      <ModalProduct
+        inCart={isInCart(productInModal)}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        isOpen={modalIsOpen}
+        content={productInModal}
+        closeModal={closeModal}
+      />
       <MainSec>
         <Hero
           cover={data.cover}
@@ -136,15 +144,6 @@ function App() {
           />
         )}
       </MainSec>
-
-      <ModalProduct
-        inCart={isInCart(productInModal)}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
-        isOpen={modalIsOpen}
-        content={productInModal}
-        closeModal={closeModal}
-      />
     </AppContainer>
   );
 }

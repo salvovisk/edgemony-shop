@@ -9,6 +9,7 @@ import {
   DefaultBlueBtn,
   ModalProductImg,
   ModalProductDescription,
+  ModalProductPriceAndBtn,
 } from "../../styles/styles";
 
 function ModalProduct({
@@ -44,7 +45,7 @@ function ModalProduct({
               <ModalProductDescription>
                 {content.description}
               </ModalProductDescription>
-              <span>
+              <ModalProductPriceAndBtn>
                 <DefaultBlueBtn
                   type="button"
                   className="handleCartBtn"
@@ -52,9 +53,9 @@ function ModalProduct({
                 >
                   {inCart ? `Remove from Cart` : `Add to Cart`}
                 </DefaultBlueBtn>
-                <h6>Price: </h6>
-                {formatPrice(content.price)}
-              </span>
+                Price:
+                {` ${formatPrice(content.price)}`}
+              </ModalProductPriceAndBtn>
             </ModalProductTextContent>
           </ModalProductContent>
         ) : null}

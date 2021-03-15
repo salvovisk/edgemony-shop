@@ -1,21 +1,28 @@
 import styled from "styled-components";
 
-
 // APP
 
 export const AppContainer = styled.div`
-  margin-top: 40px;
-  display: flex;
-  justify-self: center;
-  align-items: center;
-  flex-direction: column;
+  font-family: "Lato", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    * {
+      overflow-x: hidden;
+    }
+    align-items: center;
+  }
 `;
 
 // End of App
 
 export const DefaultBlueBtn = styled.button`
   width: 100px;
-  height: 30px;
+  min-height: 30px;
+  height: max-content;
   background-color: #3d70b8;
   border: none;
   border-radius: 5px;
@@ -42,7 +49,8 @@ export const DefaultBlueBtn = styled.button`
 
 export const CloseBtn = styled.button`
   margin: 0 auto 0 5px;
-  background-color: none;
+  height: 25px;
+  background: transparent;
   border: none;
   cursor: pointer;
   opacity: 0.5;
@@ -58,6 +66,7 @@ export const CloseBtn = styled.button`
     background: transparent;
   }
   &:hover {
+    background: transparent;
     opacity: 1;
     transform: rotate(90deg);
   }
@@ -66,11 +75,7 @@ export const CloseBtn = styled.button`
 // Main
 
 export const Main = styled.main`
-  margin-top: 40px;
-  display: flex;
-  justify-self: center;
-  align-items: center;
-  flex-direction: column;
+  padding-top: 10vh;
 `;
 
 // End of Main
@@ -105,14 +110,18 @@ export const HeaderPriceCartContainer = styled.span`
   color: white;
   font-size: 1.4rem;
   margin: 0 -60px 0 auto;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    right: 150px;
+  }
 `;
 
 export const HeadercartIconSpan = styled.span`
   margin: 0 10px 0 auto;
 
   @media (min-width: 768px) {
-    position: absolute;
-    right: 150px;
+    margin-right: 40px;
   }
 `;
 
@@ -155,11 +164,10 @@ export const SidebarContainer = styled.div`
   pointer-events: none;
   transition: opacity 0.5s ease-in-out;
 
-  ${({ isOpen }) => (isOpen ? "opacity: 1;pointer-events: auto;" : "")};
-
   @media (min-width: 768px) {
-    justify-content: center;
+    justify-content: flex-end;
   }
+  ${({ isOpen }) => (isOpen ? "opacity: 1;pointer-events: auto;" : "")};
 `;
 
 export const SidebarWrapper = styled.div`
@@ -176,12 +184,11 @@ export const SidebarWrapper = styled.div`
   transform: translateX(600px);
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 
-  ${({ isOpen }) => (isOpen ? "opacity:1;transform:translateX(0) " : "")}
-
   @media (min-width: 768px) {
-    margin-right: -50px;
-    width: 520px;
+    max-width: 520px;
   }
+
+  ${({ isOpen }) => (isOpen ? "opacity:1;transform:translateX(0) " : "")}
 `;
 
 export const SidebarHeader = styled.header`
@@ -207,7 +214,6 @@ export const CartBody = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 520px;
 `;
 
 export const CartFooter = styled.footer`
@@ -243,13 +249,13 @@ export const ProductInCart = styled.div`
   border-bottom: 1px solid black;
 
   @media (min-width: 768px) {
-    width: 90%;
-    height: max-content;
+    height: 250px;
+    max-width: 520px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-evenly;
-    border-bottom: 1px solid black;
+    align-items: center;
+    flex-wrap: nowrap;
   }
 `;
 
@@ -480,6 +486,7 @@ export const ProductsList = styled.div`
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   padding: 0px 20px 0px 20px;
+
   @media (min-width: 768px) {
     width: 100vw;
     margin: 0 auto;
@@ -596,7 +603,6 @@ export const Overlay = styled.div`
 `;
 
 export const ModalProductBody = styled.div`
-  padding-top: 2px;
   width: 90%;
   max-width: 520px;
   height: 100%;
@@ -610,12 +616,11 @@ export const ModalProductBody = styled.div`
   transform: translateY(20px);
   transition: opacity 0.5s ease-in-out, transform 0.333s ease-out;
 
-  ${({ isOpen }) => (isOpen ? "opacity:1; transform:translateY(0)" : "")}
-
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     height: 70vh;
     max-height: 80%;
   }
+  ${({ isOpen }) => (isOpen ? "opacity:1; transform:translateY(0)" : "")}
 `;
 
 export const ModalProductContent = styled.div`
@@ -681,6 +686,19 @@ export const ModalProductDescription = styled.p`
       border-radius: 10px;
     }
   }
+`;
+
+export const ModalProductPriceAndBtn = styled.span`
+  border-top: 1px solid rgba(25, 25, 25, 0.4);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5px 0 0;
+  margin-bottom: 10px;
+  font-weight: 800;
+  font-style: italic;
+  width: 100%;
+  height: 8vh;
 `;
 
 // End Modal of Products
