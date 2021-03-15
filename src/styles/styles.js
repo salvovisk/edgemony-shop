@@ -183,51 +183,41 @@ export const ModalBodyCentered = styled.div`
 // SideBar Section
 
 export const ModalBodySidebarSc = styled.div`
+  align-items: center;
   width: 90%;
   max-width: 520px;
-  height: 100%;
-  max-height: 440px;
   background-color: white;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-in-out, transform 0.333s ease-out;
+  transform: translateX(600px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   z-index: 200;
 
   @media (min-width: 768px) {
-    height: 70vh;
-    max-height: 80%;
     position: absolute;
     right: 0;
-    top: 50;
   }
   ${({ isOpen }) => (isOpen ? "opacity:1; transform:translateY(0)" : "")}
 `;
 
 export const ModalBodySidebarWrapper = styled.div`
-  padding-top: 10vh;
-  z-index: 6;
-  padding-bottom: 5vh;
-  min-height: 90%;
   width: 95vw;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  align-items: center;
-  min-height: 100%;
+  min-height: 50vh;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transform: translateX(600px);
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-
   @media (min-width: 768px) {
     max-width: 520px;
+    min-height: 70vh;
   }
-
   ${({ isOpen }) => (isOpen ? "opacity:1;transform:translateX(0) " : "")}
 `;
 
@@ -239,6 +229,10 @@ export const ModalBodySidebarHeader = styled.header`
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid black;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  margin-bottom: 25px;
 `;
 
 export const ModalBodySidebarTitle = styled.h3`
@@ -252,8 +246,12 @@ export const ModalBodySidebarTitle = styled.h3`
 export const CartBody = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  min-height: 25vh;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 5vh 0;
 `;
 
 export const CartFooter = styled.footer`
@@ -289,7 +287,7 @@ export const ProductInCart = styled.div`
   border-bottom: 1px solid black;
 
   @media (min-width: 768px) {
-    height: 250px;
+    min-height: 250px;
     max-width: 520px;
     display: flex;
     flex-direction: row;
@@ -306,6 +304,8 @@ export const ProductInCartImg = styled.img`
   object-fit: scale-down;
 
   @media (min-width: 768px) {
+    width: 80%;
+    height: 120px;
     margin: 0;
   }
 `;
@@ -400,7 +400,7 @@ export const HeroWrapper = styled.div`
     background-color: rgba(0, 0, 0, 0.7);
     width: 95vw;
     height: 20vh;
-    z-index:1;
+    z-index: 1;
   }
 `;
 
@@ -556,9 +556,6 @@ export const ProductCard = styled.div`
     height: 350px;
     margin: 55px 25px 25px 25px;
     transition: all 0.2s ease-in-out;
-    &:hover {
-      transform: scale(1.04);
-    }
   }
 `;
 
