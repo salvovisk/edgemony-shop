@@ -1,9 +1,5 @@
 import { formatPrice } from "./../../services/utils";
 import {
-  ModalOfProduct,
-  Overlay,
-  ModalProductBody,
-  CloseBtn,
   ModalProductContent,
   ModalProductTextContent,
   DefaultBlueBtn,
@@ -14,8 +10,6 @@ import {
 
 function ModalProduct({
   content,
-  closeModal,
-  isOpen,
   inCart,
   addToCart,
   removeFromCart,
@@ -30,37 +24,30 @@ function ModalProduct({
   };
 
   return (
-    <ModalOfProduct isOpen={isOpen}>
-      <Overlay isOpen={isOpen} onClick={closeModal} />
-      <ModalProductBody isOpen={isOpen}>
-        <CloseBtn type="button" onClick={closeModal}>
-          ✖️
-        </CloseBtn>
-
-        {!!content ? (
-          <ModalProductContent>
-            <ModalProductImg src={content.image} alt="productImg" />
-            <ModalProductTextContent>
-              <h3>{content.title}</h3>
-              <ModalProductDescription>
-                {content.description}
-              </ModalProductDescription>
-              <ModalProductPriceAndBtn>
-                <DefaultBlueBtn
-                  type="button"
-                  className="handleCartBtn"
-                  onClick={toggleCart}
-                >
-                  {inCart ? `Remove from Cart` : `Add to Cart`}
-                </DefaultBlueBtn>
-                Price:
-                {` ${formatPrice(content.price)}`}
-              </ModalProductPriceAndBtn>
-            </ModalProductTextContent>
-          </ModalProductContent>
-        ) : null}
-      </ModalProductBody>
-    </ModalOfProduct>
+    <>
+      {!!content ? (
+        <ModalProductContent>
+          <ModalProductImg src={content.image} alt="productImg" />
+          <ModalProductTextContent>
+            <h3>{content.title}</h3>
+            <ModalProductDescription>
+              {content.description}
+            </ModalProductDescription>
+            <ModalProductPriceAndBtn>
+              <DefaultBlueBtn
+                type="button"
+                className="handleCartBtn"
+                onClick={toggleCart}
+              >
+                {inCart ? `Remove from Cart` : `Add to Cart`}
+              </DefaultBlueBtn>
+              Price:
+              {` ${formatPrice(content.price)}`}
+            </ModalProductPriceAndBtn>
+          </ModalProductTextContent>
+        </ModalProductContent>
+      ) : null}
+    </>
   );
 }
 

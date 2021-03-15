@@ -145,33 +145,73 @@ export const HeadercartBadge = styled.span`
 
 // End of Header
 
-// SideBar Section
-
-export const SidebarContainer = styled.div`
-  z-index: 5;
-  position: fixed;
+export const ModalOverlay = styled.div`
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  padding: 2vh 2vw;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(222, 222, 222, 0.85);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease-in-out;
 
-  @media (min-width: 768px) {
-    justify-content: flex-end;
-  }
-  ${({ isOpen }) => (isOpen ? "opacity: 1;pointer-events: auto;" : "")};
+  ${({ isOpen }) => (isOpen ? "opacity:1;" : "")}
 `;
 
-export const SidebarWrapper = styled.div`
+export const ModalBodyCentered = styled.div`
+  width: 90%;
+  max-width: 520px;
+  height: 100%;
+  max-height: 440px;
+  background-color: white;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.333s ease-out;
+
+  @media (min-width: 768px) {
+    height: 70vh;
+    max-height: 80%;
+  }
+  ${({ isOpen }) => (isOpen ? "opacity:1; transform:translateY(0)" : "")}
+`;
+
+// SideBar Section
+
+export const ModalBodySidebarSc = styled.div`
+  width: 90%;
+  max-width: 520px;
+  height: 100%;
+  max-height: 440px;
+  background-color: white;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.333s ease-out;
+  z-index: 200;
+
+  @media (min-width: 768px) {
+    height: 70vh;
+    max-height: 80%;
+    position: absolute;
+    right: 0;
+    top: 50;
+  }
+  ${({ isOpen }) => (isOpen ? "opacity:1; transform:translateY(0)" : "")}
+`;
+
+export const ModalBodySidebarWrapper = styled.div`
+  padding-top: 10vh;
+  z-index: 6;
   padding-bottom: 5vh;
+  min-height: 90%;
   width: 95vw;
   border-radius: 8px;
   display: flex;
@@ -191,7 +231,7 @@ export const SidebarWrapper = styled.div`
   ${({ isOpen }) => (isOpen ? "opacity:1;transform:translateX(0) " : "")}
 `;
 
-export const SidebarHeader = styled.header`
+export const ModalBodySidebarHeader = styled.header`
   font-size: 1.5rem;
   width: 100%;
   height: 5vh;
@@ -201,7 +241,7 @@ export const SidebarHeader = styled.header`
   border-bottom: 1px solid black;
 `;
 
-export const SidebarTitle = styled.h3`
+export const ModalBodySidebarTitle = styled.h3`
   position: absolute;
 `;
 
@@ -360,6 +400,7 @@ export const HeroWrapper = styled.div`
     background-color: rgba(0, 0, 0, 0.7);
     width: 95vw;
     height: 20vh;
+    z-index:1;
   }
 `;
 
@@ -574,7 +615,7 @@ export const PriceAndBtnWrapper = styled.span`
 
 // Modal of Products
 
-export const ModalOfProduct = styled.div`
+export const ModalComponent = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -586,41 +627,6 @@ export const ModalOfProduct = styled.div`
   pointer-events: none;
 
   ${({ isOpen }) => (isOpen ? "opacity:1;pointer-events:auto" : "")}
-`;
-
-export const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(222, 222, 222, 0.85);
-  cursor: pointer;
-  transition: opacity 0.5s ease-in-out;
-  opacity: 0;
-
-  ${({ isOpen }) => (isOpen ? "opacity:1;" : "")}
-`;
-
-export const ModalProductBody = styled.div`
-  width: 90%;
-  max-width: 520px;
-  height: 100%;
-  max-height: 440px;
-  background-color: white;
-  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-in-out, transform 0.333s ease-out;
-
-  @media (min-width: 768px) {
-    height: 70vh;
-    max-height: 80%;
-  }
-  ${({ isOpen }) => (isOpen ? "opacity:1; transform:translateY(0)" : "")}
 `;
 
 export const ModalProductContent = styled.div`
