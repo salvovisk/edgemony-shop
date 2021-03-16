@@ -4,7 +4,7 @@ import CategoriesFilter from "./../Categoriesfilter/CategoriesFilter";
 import { useState } from "react";
 import { ProductsList } from "../../styles/styles";
 
-function ProductsSection({ products, categories, openProductModal }) {
+function ProductsSection({ products, categories }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -26,11 +26,7 @@ function ProductsSection({ products, categories, openProductModal }) {
       />
       <ProductsList>
         {filteredProducts.map((product) => (
-          <Products
-            product={product}
-            key={product.id}
-            openProductModal={() => openProductModal(product)}
-          />
+          <Products product={product} key={product.id} />
         ))}
       </ProductsList>
     </>
