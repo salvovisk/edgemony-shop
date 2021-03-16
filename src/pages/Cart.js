@@ -26,3 +26,4 @@ function Cart({ totalPrice, products, removeFromCart, setProductQuantity }) {
 }
 
 export default Cart;
+
