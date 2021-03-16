@@ -10,11 +10,14 @@ import {
 } from "./../../styles/styles";
 
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 function Header({ logo, cart, openCartModal, totalPrice }) {
   return (
     <HeaderContainer>
-      <HeaderLogo src={logo} alt="headerLogo" />
+      <Link to="/">
+        <HeaderLogo src={logo} alt="headerLogo" />
+      </Link>
       <HeaderPriceCartContainer>
         {!!cart.length && <h6>{formatPrice(totalPrice)}</h6>}
       </HeaderPriceCartContainer>

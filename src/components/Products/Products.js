@@ -4,11 +4,11 @@ import {
   ProductCardImg,
   ProductCardTitle,
   PriceAndBtnWrapper,
-  DefaultBlueBtn
 } from "../../styles/styles";
 import { formatPrice } from "./../../services/utils";
+import { Link } from "react-router-dom";
 
-function Products({ product, openProductModal }) {
+function Products({ product }) {
   return (
     <ProductCard>
       <ProductCardImg src={product.image} alt={product.title} />
@@ -17,9 +17,7 @@ function Products({ product, openProductModal }) {
         <PriceAndBtnWrapper>
           {" "}
           {formatPrice(product.price)}
-          <DefaultBlueBtn onClick={openProductModal}>
-            View Details
-          </DefaultBlueBtn>
+          <Link to={`/products/${product.id}`}>View Details</Link>
         </PriceAndBtnWrapper>
       </ProductCardContent>
     </ProductCard>
