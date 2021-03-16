@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Header from "./components/Header/Header";
 import Page404 from "./pages/Page404";
+import Cart from "./pages/Cart";
+
 import data from "./utilities/data";
-import Modal from "./components/Modal/Modal";
-import ModalBodySidebar from "./components/ModalBodySidebar/ModalBodySidebar";
-import Cart from "./components/Cart/Cart";
 
 function App() {
   // Shopping Cart Logic
@@ -34,48 +34,25 @@ function App() {
     );
   }
 
-  // CartModal Logic
-  const [cartIsOpen, setCartIsOpen] = useState(false);
-
-  // // Modal Logic
-
-  useEffect(() => {
-    if (cartIsOpen) {
-      document.body.style.height = `100vh`;
-      document.body.style.overflow = `hidden`;
-    } else {
-      document.body.style.height = ``;
-      document.body.style.overflow = ``;
-    }
-  }, [cartIsOpen]);
 
   return (
     <Router>
       <Header
         logo={data.logo}
         cart={cart}
-        openCartModal={() => setCartIsOpen(true)}
         totalPrice={totalPrice}
       />
-
-      <Modal isOpen={cartIsOpen} onClose={() => setCartIsOpen(false)}>
-        <ModalBodySidebar
-          isOpen={cartIsOpen}
-          onClose={() => setCartIsOpen(false)}
-          title={"Cart"}
-        >
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/cart">
           <Cart
             products={cart}
             totalPrice={totalPrice}
             removeFromCart={removeFromCart}
             setProductQuantity={setProductQuantity}
           />
-        </ModalBodySidebar>
-      </Modal>
-
-      <Switch>
-        <Route exact path="/">
-          <Home />
         </Route>
         <Route path="/products/:productId">
           <Product

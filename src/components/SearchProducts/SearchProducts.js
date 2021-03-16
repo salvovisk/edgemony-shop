@@ -1,5 +1,5 @@
 import { SearchProductsSect } from "../../styles/styles";
-import "./SearchProducts.css"
+import "./SearchProducts.css";
 
 function SearchProducts({ value, onChange }) {
   const SearchInput = "search" + (value ? " contains" : "");

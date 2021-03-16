@@ -1,11 +1,11 @@
-import { formatPrice } from "../../services/utils";
-import { CartBody, CartFooter } from "../../styles/styles";
-import CartProduct from "../CartProduct/CartProduct";
-import "./Cart.css"
+import React from "react";
+import { formatPrice } from "../services/utils";
+import { CartPage, CartBody, CartFooter, EmptycartMsg } from "../styles/styles";
+import CartProduct from "../components/CartProduct/CartProduct";
 
 function Cart({ totalPrice, products, removeFromCart, setProductQuantity }) {
   return (
-    <div className="cartWrapper">
+    <CartPage>
       <CartBody>
         {products.length > 0 ? (
           products.map((product) => (
@@ -17,11 +17,11 @@ function Cart({ totalPrice, products, removeFromCart, setProductQuantity }) {
             />
           ))
         ) : (
-          <p className="Cart__content__empty">The cart is empty</p>
+          <EmptycartMsg> Your Cart is empty </EmptycartMsg>
         )}
       </CartBody>
-      <CartFooter> Total: {formatPrice(totalPrice)}</CartFooter>
-    </div>
+        <CartFooter> Total: {formatPrice(totalPrice)}</CartFooter>
+    </CartPage>
   );
 }
 

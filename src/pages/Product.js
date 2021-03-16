@@ -4,17 +4,18 @@ import { formatPrice } from "./../services/utils";
 import { useParams } from "react-router-dom";
 
 import {
-  ModalProductContent,
-  ModalProductTextContent,
+  ProductContent,
+  ProductTextContent,
   DefaultBlueBtn,
-  ModalProductImg,
-  ModalProductDescription,
-  ModalProductPriceAndBtn,
+  ProductImg,
+  ProductDescription,
+  ProductPriceAndBtn,
 } from "./../styles/styles.js";
 import Loader from "../components/Loader/Loader";
 
 function Product({ addToCart, removeFromCart, isInCart }) {
   let { productId } = useParams();
+  
 
   const [product, setProduct] = useState(null);
 
@@ -33,12 +34,12 @@ function Product({ addToCart, removeFromCart, isInCart }) {
   };
 
   return product ? (
-    <ModalProductContent>
-      <ModalProductImg src={product.image} alt="productImg" />
-      <ModalProductTextContent>
+    <ProductContent>
+      <ProductImg src={product.image} alt="productImg" />
+      <ProductTextContent>
         <h3>{product.title}</h3>
-        <ModalProductDescription>{product.description}</ModalProductDescription>
-        <ModalProductPriceAndBtn>
+        <ProductDescription>{product.description}</ProductDescription>
+        <ProductPriceAndBtn>
           <DefaultBlueBtn
             type="button"
             className="handleCartBtn"
@@ -46,11 +47,10 @@ function Product({ addToCart, removeFromCart, isInCart }) {
           >
             {isInCart(product) ? `Remove from Cart` : `Add to Cart`}
           </DefaultBlueBtn>
-          Price:
           {` ${formatPrice(product.price)}`}
-        </ModalProductPriceAndBtn>
-      </ModalProductTextContent>
-    </ModalProductContent>
+        </ProductPriceAndBtn>
+      </ProductTextContent>
+    </ProductContent>
   ) : (
     <Loader />
   );

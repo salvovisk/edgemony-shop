@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 // APP
-
 export const AppContainer = styled.div`
   font-family: "Lato", sans-serif;
   min-height: 100vh;
@@ -14,13 +13,14 @@ export const AppContainer = styled.div`
       overflow-x: hidden;
     }
     align-items: center;
+    overflow-x: hidden;
   }
 `;
 
 // End of App
 
 export const DefaultBlueBtn = styled.button`
-  width: 100px;
+  min-width: 100px;
   min-height: 30px;
   height: max-content;
   background-color: #3d70b8;
@@ -241,17 +241,42 @@ export const ModalBodySidebarTitle = styled.h3`
 
 // Enb of Sidebar
 
-// Cart Modal
+// Cart
+
+export const CartPage = styled.div`
+  min-height: 100vh;
+  width: 100vw;
+  padding: 10vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    max-width: 100vw;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+`;
+
+export const EmptycartMsg = styled.p`
+  font-size: 2rem;
+`;
 
 export const CartBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  min-height: 25vh;
-  max-height: 80vh;
+  overflow-x: hidden;
   overflow-y: auto;
-  padding: 5vh 0;
+
+  @media (min-width: 768px) {
+    max-width: 100vw;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
 `;
 
 export const CartFooter = styled.footer`
@@ -262,18 +287,17 @@ export const CartFooter = styled.footer`
   padding: 10px;
   width: 95vw;
   text-align: center;
-  border-top: 1px solid black;
+  border-top: 1px solid rgba(25, 25, 25, 0.4);
   font-size: large;
   font-weight: bold;
   position: fixed;
   bottom: 0;
 
   @media (min-width: 768px) {
-    width: 520px;
+    width: 100vw;
     height: 8vh;
   }
 `;
-// End of Cart Modal
 
 // Cartproduct
 
@@ -294,6 +318,11 @@ export const ProductInCart = styled.div`
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: nowrap;
+    flex-basis: 50%;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px 2px rgba(10, 25, 25, 0.25);
+    margin: 25px;
   }
 `;
 
@@ -304,7 +333,7 @@ export const ProductInCartImg = styled.img`
   object-fit: scale-down;
 
   @media (min-width: 768px) {
-    width: 80%;
+    width: 250px;
     height: 120px;
     margin: 0;
   }
@@ -319,6 +348,7 @@ export const CartContent = styled.div`
 
   @media (min-width: 768px) {
     width: fit-content;
+    flex-basis: 25%;
   }
 `;
 
@@ -612,34 +642,39 @@ export const PriceAndBtnWrapper = styled.span`
 
 // Modal of Products
 
-export const ModalComponent = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+// export const ModalComponent = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-evenly;
+//   pointer-events: none;
 
-  ${({ isOpen }) => (isOpen ? "opacity:1;pointer-events:auto" : "")}
-`;
+//   ${({ isOpen }) => (isOpen ? "opacity:1;pointer-events:auto" : "")}
+// `;
 
-export const ModalProductContent = styled.div`
+export const ProductContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 12vh;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    padding: 12vh;
+  }
 `;
 
-export const ModalProductImg = styled.img`
-  height: 180px;
+export const ProductImg = styled.img`
+  height: 250px;
   width: 220px;
   object-fit: scale-down;
-  margin-top: 15px;
+  margin-bottom: 25px;
 
   @media (min-width: 768px) {
     height: 70%;
@@ -649,59 +684,51 @@ export const ModalProductImg = styled.img`
   }
 `;
 
-export const ModalProductTextContent = styled.div`
-  height: 100%;
+export const ProductTextContent = styled.div`
+  height: fit-content;
+  width: 80vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 0 15px;
+  justify-content: center;
 
   & > h3 {
     ${ProductCardTitle}
     text-align:left;
   }
-`;
-
-export const ModalProductDescription = styled.p`
-  max-height: 6rem;
-  font-size: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow-y: auto;
 
   @media (min-width: 768px) {
-    font-size: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 10;
-    -webkit-box-orient: vertical;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: rgba(25, 25, 25, 0.4);
-      border-radius: 5px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #3d70b8;
-      border-radius: 10px;
-    }
+    padding: 0;
+    padding: 0 15px;
   }
 `;
 
-export const ModalProductPriceAndBtn = styled.span`
+export const ProductDescription = styled.p`
+  margin: 15px 0;
+  font-size: 1.2rem;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+export const ProductPriceAndBtn = styled.span`
   border-top: 1px solid rgba(25, 25, 25, 0.4);
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 5px 0 0;
   margin-bottom: 10px;
+  font-size: 1.2rem;
   font-weight: 800;
   font-style: italic;
   width: 100%;
   height: 8vh;
+
+  & > button {
+    width: max-content;
+    padding: 2px 10px;
+    font-size: 1.2rem;
+  }
 `;
 
 // End Modal of Products
@@ -778,4 +805,52 @@ export const ErrorBannerCloseBtn = styled.button`
   &:focus {
     transform: scale(1.01);
   }
+`;
+
+// 404 Page
+
+export const NotFound404 = styled.div`
+  background-color: rgb(29, 53, 87);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10vh;
+`;
+
+export const NotFoundBody = styled.div`
+  background-color: white;
+  width: 90vw;
+  height: 60vh;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px 2px rgba(25, 25, 25, 0.25);
+  padding: 0 10px;
+
+  @media (min-width: 768px) {
+    width: 50vw;
+  }
+`;
+
+export const NotFoundHeader = styled.span`
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 3rem;
+  padding-top: 10vh;
+  color: #1d3557;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+`;
+
+export const NotFoundMsg = styled.div`
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
 `;

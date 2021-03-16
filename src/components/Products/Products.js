@@ -4,6 +4,7 @@ import {
   ProductCardImg,
   ProductCardTitle,
   PriceAndBtnWrapper,
+  DefaultBlueBtn,
 } from "../../styles/styles";
 import { formatPrice } from "./../../services/utils";
 import { Link } from "react-router-dom";
@@ -17,7 +18,10 @@ function Products({ product }) {
         <PriceAndBtnWrapper>
           {" "}
           {formatPrice(product.price)}
-          <Link to={`/products/${product.id}`}>View Details</Link>
+          <Link to={`/products/${product.id}`}>
+            {" "}
+            <DefaultBlueBtn type="button"> View Details </DefaultBlueBtn>{" "}
+          </Link>
         </PriceAndBtnWrapper>
       </ProductCardContent>
     </ProductCard>

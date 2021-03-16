@@ -22,11 +22,13 @@ function Header({ logo, cart, openCartModal, totalPrice }) {
         {!!cart.length && <h6>{formatPrice(totalPrice)}</h6>}
       </HeaderPriceCartContainer>
       <HeadercartIconSpan>
-        <FontAwesomeIcon
-          onClick={openCartModal}
-          icon={faShoppingCart}
-          className="faiconcart"
-        />
+        <Link to="/cart">
+          <FontAwesomeIcon
+            onClick={openCartModal}
+            icon={faShoppingCart}
+            className="faiconcart"
+          />
+        </Link>
         {!!cart.length && <HeadercartBadge> {cart.length}</HeadercartBadge>}
       </HeadercartIconSpan>
     </HeaderContainer>
