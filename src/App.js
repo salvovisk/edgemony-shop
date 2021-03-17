@@ -13,6 +13,7 @@ import data from "./utilities/data";
 function App() {
   // Shopping Cart Logic
   const [cart, setCart] = useState([]);
+
   const totalPrice = cart.reduce(
     (total, product) => total + product.price * product.quantity,
     0
@@ -34,14 +35,9 @@ function App() {
     );
   }
 
-
   return (
     <Router>
-      <Header
-        logo={data.logo}
-        cart={cart}
-        totalPrice={totalPrice}
-      />
+      <Header logo={data.logo} cart={cart} totalPrice={totalPrice} />
       <Switch>
         <Route exact path="/">
           <Home />

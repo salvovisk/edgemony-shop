@@ -20,10 +20,9 @@ function Cart({ totalPrice, products, removeFromCart, setProductQuantity }) {
           <EmptycartMsg> Your Cart is empty </EmptycartMsg>
         )}
       </CartBody>
-        <CartFooter> Total: {formatPrice(totalPrice)}</CartFooter>
+      <CartFooter> Total: {formatPrice(totalPrice)}</CartFooter>
     </CartPage>
   );
 }
 
 export default Cart;
-
