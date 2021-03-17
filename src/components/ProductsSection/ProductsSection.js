@@ -6,21 +6,26 @@ import { ProductsList } from "../../styles/styles";
 import { useHistory, useLocation } from "react-router";
 
 function ProductsSection({ products, categories }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  // const [selectedCategories, setSelectedCategories] = useState([]);
   const location = useLocation();
   const history = useHistory();
 
-  const selectedCategoriesParam = new URLSearchParams(location.search).get(
-    "categories"
-  );
+  const searchParams = new URLSearchParams(location.search);
+  const searchTerm = searchParams.get("q") || "";
 
+  function updateSearchTerm(term) {
+    if (term) {
+      searchParams.set("q", term);
+    } else {
+      searchParams.delete("q");
+    }
+    history.push({ search: "?" + searchParams.toString() });
+  }
+
+  const selectedCategoriesParam = searchParams.get("categories");
 
   const selectedCategories = selectedCategoriesParam
     ? selectedCategoriesParam.split(",")
     : [];
-  
-  
 
   function updateCategories(categories) {
     const newParams = new URLSearchParams(location.search);
@@ -44,7 +49,7 @@ function ProductsSection({ products, categories }) {
 
   return (
     <>
-      <SearchProducts value={searchTerm} onChange={setSearchTerm} />
+      <SearchProducts value={searchTerm} onChange={updateSearchTerm} />
       <CategoriesFilter
         categories={categories}
         selectedCategories={selectedCategories}
