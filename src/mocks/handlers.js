@@ -130,6 +130,7 @@ export const handlers = [
       const limit = parseInt(req.url.searchParams.get("limit"));
       const offset = parseInt(req.url.searchParams.get("offset")) || 0;
       let filteredProducts = products.map((product) => {
+        // delete product.description;
         return product;
       });
       if (q) {
