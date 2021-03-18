@@ -20,6 +20,11 @@ export async function fetchProduct(id) {
 export async function fetchCatogories() {
   return callAPI("products/categories");
 }
+
+export async function fetchCart(cartId) {
+  return callAPI(`carts/${cartId}`);
+}
+
 export async function postItemToCart(cartId, productId, quantity) {
   return callAPI(`carts/${cartId}/items`, {
     method: "POST",

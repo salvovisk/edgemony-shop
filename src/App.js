@@ -7,7 +7,7 @@ import Product from "./pages/Product";
 import Header from "./components/Header/Header";
 import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
-import { deleteItemFromCart, postItemToCart } from "./services/api";
+import { deleteItemFromCart, postItemToCart, fetchCart } from "./services/api";
 
 import data from "./utilities/data";
 
@@ -26,47 +26,41 @@ function App() {
     return product != null && cart.find((p) => p.id === product.id) != null;
   }
 
-  async function addToCart(product) {
+  async function updateCart(fn, ...apiParams) {
     try {
-      const newCart = await postItemToCart(cartId, product.id, 1);
+      const newCart = await fn(...apiParams);
       setCart(newCart.items);
     } catch (error) {
-      console.error("postItemToCart Api call response error!", error.message);
+      console.error(`${fn.name} API call response error! ${error.message}`);
     }
+  }
+
+  async function addToCart(productId) {
+    updateCart(postItemToCart, cartId, productId, 1);
   }
 
   async function removeFromCart(productId) {
-    try {
-      const newCart = await deleteItemFromCart(cartId, productId);
-      setCart(newCart.items);
-    } catch (error) {
-      console.error(
-        "deleteItemFromCart Api call response error!",
-        error.message
-      );
-    }
-    setCart(cart.filter((product) => product.id !== productId));
+    updateCart(deleteItemFromCart, cartId, productId);
   }
 
   async function setProductQuantity(productId, quantity) {
-    try {
-      const newCart = await postItemToCart(cartId, productId, quantity);
-      setCart(newCart.items);
-    } catch (error) {
-      console.error("postItemToCart API call response error!", error.message);
-    }
+    updateCart(postItemToCart, cartId, productId, quantity);
   }
 
   useEffect(() => {
-    const cartFromLocalStorage = localStorage.getItem("edgemony-cart");
-    try {
-      const cartObj = JSON.parse(cartFromLocalStorage);
-      setCart(cartObj.items);
-      cartId = cartObj.id;
-    } catch (error) {
-      console.error(
-        'Error while parsing "edgemony-cart" localstorage item!' + error.message
-      );
+    const cartIdFromLocalStorage = localStorage.getItem("edgemony-cart-id");
+
+    if (cartIdFromLocalStorage) {
+      async function fetchCartInEffect() {
+        try {
+          const cartObj = await fetchCart(cartIdFromLocalStorage);
+          setCart(cartObj.items);
+          cartId = cartObj.id;
+        } catch (error) {
+          console.error("fetchCart API call response error! ", error.message);
+        }
+      }
+      fetchCartInEffect();
     }
   }, []);
 

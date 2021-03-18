@@ -215,7 +215,7 @@ export const handlers = [
     randomError(function removeCartItemApi(req, res, ctx) {
       try {
         const id = parseInt(req.params.id);
-        const productId = parseInt(req.params.id);
+        const productId = parseInt(req.params.productId);
         return res(ctx.status(200), ctx.json(removeFromCart(id, productId)));
       } catch (error) {
         if (error instanceof HttpError) {
