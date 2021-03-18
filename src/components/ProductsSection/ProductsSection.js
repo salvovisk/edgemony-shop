@@ -1,8 +1,7 @@
 import Products from "../Products/Products";
 import SearchProducts from "../SearchProducts/SearchProducts";
 import CategoriesFilter from "./../Categoriesfilter/CategoriesFilter";
-import { useState } from "react";
-import { ProductsList } from "../../styles/styles";
+import { ProductsList, NoMatchesMsg } from "../../styles/styles";
 import { useHistory, useLocation } from "react-router";
 
 function ProductsSection({ products, categories }) {
@@ -56,9 +55,13 @@ function ProductsSection({ products, categories }) {
         onSelectCategory={updateCategories}
       />
       <ProductsList>
-        {filteredProducts.map((product) => (
-          <Products product={product} key={product.id} />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Products product={product} key={product.id} />
+          ))
+        ) : (
+          <NoMatchesMsg>No products found</NoMatchesMsg>
+        )}
       </ProductsList>
     </>
   );

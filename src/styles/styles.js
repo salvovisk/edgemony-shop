@@ -538,6 +538,12 @@ export const SearchProductsSect = styled.div`
   }
 `;
 
+export const NoMatchesMsg = styled.div`
+  margin-top: 25px;
+  font-size: 2rem;
+  text-align: center;
+`;
+
 // CategoriesFilter
 export const CategoriesFilterSection = styled.div`
   display: flex;
