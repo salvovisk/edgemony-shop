@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -7,8 +7,11 @@ import Product from "./pages/Product";
 import Header from "./components/Header/Header";
 import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
+import { deleteItemFromCart, postItemToCart } from "./services/api";
 
 import data from "./utilities/data";
+
+let cartId;
 
 function App() {
   // Shopping Cart Logic
@@ -18,22 +21,54 @@ function App() {
     (total, product) => total + product.price * product.quantity,
     0
   );
+
   function isInCart(product) {
     return product != null && cart.find((p) => p.id === product.id) != null;
   }
-  function addToCart(product) {
-    setCart([...cart, { ...product, quantity: 1 }]);
+
+  async function addToCart(product) {
+    try {
+      const newCart = await postItemToCart(cartId, product.id, 1);
+      setCart(newCart.items);
+    } catch (error) {
+      console.error("postItemToCart Api call response error!", error.message);
+    }
   }
-  function removeFromCart(productId) {
+
+  async function removeFromCart(productId) {
+    try {
+      const newCart = await deleteItemFromCart(cartId, productId);
+      setCart(newCart.items);
+    } catch (error) {
+      console.error(
+        "deleteItemFromCart Api call response error!",
+        error.message
+      );
+    }
     setCart(cart.filter((product) => product.id !== productId));
   }
-  function setProductQuantity(productId, quantity) {
-    setCart(
-      cart.map((product) =>
-        product.id === productId ? { ...product, quantity } : product
-      )
-    );
+
+  async function setProductQuantity(productId, quantity) {
+    try {
+      const newCart = await postItemToCart(cartId, productId, quantity);
+      setCart(newCart.items);
+    } catch (error) {
+      console.error("postItemToCart API call response error!", error.message);
+    }
   }
+
+  useEffect(() => {
+    const cartFromLocalStorage = localStorage.getItem("edgemony-cart");
+    try {
+      const cartObj = JSON.parse(cartFromLocalStorage);
+      setCart(cartObj.items);
+      cartId = cartObj.id;
+    } catch (error) {
+      console.error(
+        'Error while parsing "edgemony-cart" localstorage item!' + error.message
+      );
+    }
+  }, []);
 
   return (
     <Router>
