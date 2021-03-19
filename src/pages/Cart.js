@@ -2,9 +2,18 @@ import React from "react";
 import { formatPrice } from "../services/utils";
 import { CartPage, CartBody, CartFooter, EmptycartMsg } from "../styles/styles";
 import CartProduct from "../components/CartProduct/CartProduct";
+import Loader from "../components/Loader/Loader";
 
-function Cart({ totalPrice, products, removeFromCart, setProductQuantity }) {
-  return (
+function Cart({
+  totalPrice,
+  products,
+  removeFromCart,
+  setProductQuantity,
+  isLoading,
+}) {
+  return isLoading ? (
+    <Loader />
+  ) : (
     <CartPage>
       <CartBody>
         {products.length > 0 ? (

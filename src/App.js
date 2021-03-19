@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Header from "./components/Header/Header";
-import Loader from "./components/Loader/Loader";
+
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
@@ -17,9 +17,6 @@ import data from "./utilities/data";
 let cartId;
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState("");
-
   // Shopping Cart Logic
   const [cart, setCart] = useState([]);
 
@@ -53,27 +50,52 @@ function App() {
     updateCart(postItemToCart, cartId, productId, quantity);
   }
 
+  // Error and Loading Logic
+  const [apiErrors, setApiErrors] = useState({});
+
+  const cartError = apiErrors.cart;
+
+  const errorKey = Object.keys(apiErrors).find((key) => apiErrors[key] != null);
+
+  const setProductListError = useCallback(
+    (error) => setApiErrors((errors) => ({ ...errors, productList: error })),
+    []
+  );
+  const setProductError = useCallback(
+    (error) => setApiErrors((errors) => ({ ...errors, product: error })),
+    []
+  );
+  const setCartError = useCallback(
+    (error) => setApiErrors((errors) => ({ ...errors, cart: error })),
+    []
+  );
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [retry, setRetry] = useState(false);
+
+  // Cart fetch from Api
   useEffect(() => {
-    setIsLoading(true);
     const cartIdFromLocalStorage = localStorage.getItem("edgemony-cart-id");
 
-    if (cartIdFromLocalStorage) {
-      async function fetchCartInEffect() {
-        try {
-          const cartObj = await fetchCart(cartIdFromLocalStorage);
-          setCart(cartObj.items);
-          cartId = cartObj.id;
-        } catch (error) {
-          setIsLoading(false);
-          setApiError(error.message);
-          console.error("fetchCart API call response error! ", error.message);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      fetchCartInEffect();
+    if (!cartIdFromLocalStorage) {
+      return;
     }
-  }, [apiError]);
+
+    setIsLoading(true);
+    setCartError(undefined);
+    async function fetchCartInEffect() {
+      try {
+        const cartObj = await fetchCart(cartIdFromLocalStorage);
+        setCart(cartObj.items);
+        cartId = cartObj.id;
+      } catch ({ message }) {
+        setCartError({ message, retry: () => setRetry(!retry) });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchCartInEffect();
+  }, [retry, setCartError]);
 
   return (
     <Router>
@@ -81,52 +103,36 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          {isLoading ? (
-            <Loader />
-          ) : apiError ? (
-            <ErrorProduct message={apiError} retry={() => setApiError("")} />
-          ) : (
-            <Home
-              setIsLoading={setIsLoading}
-              setApiError={setApiError}
-              apiError={apiError}
-            />
-          )}
+          <Home onError={setProductListError} />
         </Route>
         <Route path="/cart">
-          {isLoading ? (
-            <Loader />
-          ) : apiError ? (
-            <ErrorProduct message={apiError} retry={() => setApiError("")} />
-          ) : (
-            <Cart
-              products={cart}
-              totalPrice={totalPrice}
-              removeFromCart={removeFromCart}
-              setProductQuantity={setProductQuantity}
-            />
-          )}
+          <Cart
+            products={cart}
+            totalPrice={totalPrice}
+            removeFromCart={removeFromCart}
+            setProductQuantity={setProductQuantity}
+            isLoading={isLoading}
+          />
         </Route>
         <Route path="/products/:productId">
-          {isLoading ? (
-            <Loader />
-          ) : apiError ? (
-            <ErrorProduct message={apiError} retry={() => setApiError("")} />
-          ) : (
-            <Product
-              setIsLoading={setIsLoading}
-              setApiError={setApiError}
-              apiError={apiError}
-              addToCart={addToCart}
-              removeFromCart={removeFromCart}
-              isInCart={isInCart}
-            />
-          )}
+          <Product
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            isInCart={isInCart}
+            onError={setProductError}
+          />
         </Route>
         <Route path="*">
           <Page404 />
         </Route>
       </Switch>
+      {errorKey ? (
+        <ErrorProduct
+          message={apiErrors[errorKey].message}
+          close={() => setApiErrors({ ...apiErrors, [errorKey]: undefined })}
+          retry={apiErrors[errorKey].retry}
+        />
+      ) : null}
     </Router>
   );
 }

@@ -27,13 +27,13 @@ export async function fetchCart(cartId) {
 
 export async function postItemToCart(cartId, productId, quantity) {
   return callAPI(`carts/${cartId}/items`, {
-    method: "POST",
-    body: JSON.stringify({ id: productId, quantity }),
-  });
+    method: 'POST',
+    body: JSON.stringify({ id: productId, quantity })
+  })
 }
 
 export async function deleteItemFromCart(cartId, productId) {
   return callAPI(`carts/${cartId}/items/${productId}`, {
-    method: "DELETE",
-  });
+    method: 'DELETE',
+  })
 }

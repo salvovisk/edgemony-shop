@@ -3,7 +3,7 @@ import { fetchProducts, fetchCatogories } from "./../services/api";
 
 import Hero from "./../components/Hero/Hero";
 import ProductsSection from "./../components/ProductsSection/ProductsSection";
-
+import Loader from "./../components/Loader/Loader";
 import MainSec from "./../containers/Main";
 
 import data from "./../utilities/data";
@@ -12,25 +12,29 @@ import { AppContainer } from "./../styles/styles";
 
 let cache;
 
-function Home({ setIsLoading, setApiError, apiError }) {
+function Home({ onError }) {
   const [products, setProducts] = useState(cache ? cache.products : []);
   const [categories, setCategories] = useState(cache ? cache.categories : []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [retry, setRetry] = useState(false);
 
   useEffect(() => {
     if (cache !== undefined) {
       return;
     }
     setIsLoading(true);
-    setApiError("");
+    onError(undefined);
     Promise.all([fetchProducts(), fetchCatogories()])
       .then(([products, categories]) => {
         setProducts(products);
         setCategories(categories);
         cache = { products, categories };
       })
-      .catch((err) => setApiError(err.message))
+      .catch(({ message }) =>
+        onError({ message, retry: () => setRetry(!retry) })
+      )
       .finally(() => setIsLoading(false));
-  }, [apiError]);
+  }, [retry, onError]);
 
   return (
     <AppContainer>
@@ -40,7 +44,11 @@ function Home({ setIsLoading, setApiError, apiError }) {
           title={data.title}
           description={data.description}
         />
-        <ProductsSection products={products} categories={categories} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <ProductsSection products={products} categories={categories} />
+        )}
       </MainSec>
     </AppContainer>
   );
