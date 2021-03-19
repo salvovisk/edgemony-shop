@@ -312,7 +312,7 @@ export const ProductInCart = styled.div`
 
   @media (min-width: 768px) {
     min-height: 250px;
-    max-width: 520px;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -347,8 +347,7 @@ export const CartContent = styled.div`
   justify-content: center;
 
   @media (min-width: 768px) {
-    width: fit-content;
-    flex-basis: 25%;
+    width: 250px;
   }
 `;
 
