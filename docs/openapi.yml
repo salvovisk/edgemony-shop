@@ -1,0 +1,316 @@
+openapi: "3.0.2"
+info:
+  title: EdgemonyShop
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+
+components:
+  schemas:
+    ProductInCart:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        title:
+          type: string
+          example: "Mens Casual Premium Slim Fit T-Shirts "
+        price:
+          type: number
+          example: 22.3
+        image:
+          type: string
+          example: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+
+    ProductInList:
+      allOf:
+        - $ref: "#/components/schemas/ProductInCart"
+        - type: object
+          properties:
+            category:
+              $ref: "#/components/schemas/Category"
+
+    Product:
+      allOf:
+        - $ref: "#/components/schemas/ProductInList"
+        - type: object
+          properties:
+            description:
+              type: string
+              example: "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket."
+
+    Category:
+      type: string
+      example: "men clothing"
+
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductInCart"
+        billingData:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Anacleto
+            lastName:
+              type: string
+              example: Ferri
+            address:
+              type: string
+              example: Via Adua, 32, 10060, Baudenasca, TO
+            email:
+              type: string
+              example: anacleto.ferri@gmail.com
+
+    PostCartItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Product id
+          example: 1
+        quantity:
+          type: integer
+          description: Number of items to add
+          example: 3
+
+    Order:
+      allOf:
+        - $ref: "#/components/schemas/Cart"
+        - type: object
+          properties:
+            created:
+              type: string
+              format: datetime
+              example: "2011-10-05T14:48:00.000Z"
+
+    OrderInList:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nItems:
+          type: integer
+          example: 10
+        totalPrice:
+          type: number
+          example: 25.90
+        name:
+          type: string
+          example: Anacleto
+        lastName:
+          type: string
+          example: Ferri
+        email:
+          type: string
+          example: anacleto.ferri@gmail.com
+        created:
+          type: string
+          format: datetime
+          example: "2011-10-05T14:48:00.000Z"
+
+    PostOrder:
+      type: object
+      properties:
+        cartId:
+          type: integer
+          description: Cart id
+          example: 1
+
+paths:
+  /products:
+    get:
+      description: Product list
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductInList"
+
+  /products/{id}:
+    get:
+      description: Products in a category
+      parameters:
+        - in: path
+          name: id
+          description: id of the product
+          example: 1
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+
+  /products/categories:
+    get:
+      description: Category list
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /products/categories/{category}:
+    get:
+      description: Products in a category
+      parameters:
+        - in: path
+          name: category
+          schema:
+            $ref: "#/components/schemas/Category"
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductInList"
+
+  /carts:
+    post:
+      description: Create a new cart
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+
+  /carts/{id}:
+    get:
+      description: Cart detail
+      parameters:
+        - in: path
+          name: id
+          description: id of the cart
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+
+  /carts/{id}/items:
+    post:
+      description: Add or update an item in the cart
+      parameters:
+        - in: path
+          name: id
+          description: id of the cart
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCartItem"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+
+  /carts/{id}/items/{productId}:
+    delete:
+      description: Remove an item from the cart
+      parameters:
+        - in: path
+          name: id
+          description: id of the cart
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: productId
+          description: id of the product
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+
+  /orders:
+    get:
+      description: Order list
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderInList"
+    post:
+      description: Create a new order
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostOrder"
+
+  /orders/{id}:
+    get:
+      description: Order detail
+      parameters:
+        - in: path
+          name: id
+          description: id of the order
+          example: 1
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
