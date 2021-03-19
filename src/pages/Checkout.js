@@ -7,16 +7,28 @@ import {
   CheckoutBtn,
 } from "../styles/styles";
 
+import { useRef } from "react";
+
 function Checkout() {
+  const form = useRef(null);
+
+  function onSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(form.current);
+    const parsed = JSON.stringify(Object.fromEntries(data));
+    // console.log(data.getAll('first-name', 'last-name',));
+    console.log(parsed);
+  }
+
   return (
     <CheckoutBody>
-      <CheckoutForm>
+      <CheckoutForm ref={form} onSubmit={onSubmit}>
         <CheckoutHeader>Confirm your order</CheckoutHeader>
-        <InputLabel htmlFor="first-name">First Name</InputLabel>
+        <InputLabel htmlFor="name">Name</InputLabel>
         <CheckoutInput
-          id="first-name"
+          id="name"
           type="text"
-          name="first-name"
+          name="name"
           required
         ></CheckoutInput>
         <InputLabel htmlFor="last-name"> Last Name</InputLabel>
@@ -40,7 +52,7 @@ function Checkout() {
           name="email"
           required
         ></CheckoutInput>
-        <CheckoutBtn> Confirm </CheckoutBtn>
+        <CheckoutBtn type="submit"> Confirm </CheckoutBtn>
       </CheckoutForm>
     </CheckoutBody>
   );
