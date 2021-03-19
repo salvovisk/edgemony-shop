@@ -93,7 +93,7 @@ function getProduct(id, status = 404) {
   return product;
 }
 
-const baseURL = "https://fakestoreapi.com";
+const baseURL = "https://fakestoreapi.herokuapp.com";
 
 function getError() {
   const errors = [
