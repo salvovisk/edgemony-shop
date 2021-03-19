@@ -1,8 +1,15 @@
 import React from "react";
 import { formatPrice } from "../services/utils";
-import { CartPage, CartBody, CartFooter, EmptycartMsg } from "../styles/styles";
+import {
+  CartPage,
+  CartBody,
+  CartFooter,
+  EmptycartMsg,
+  DefaultBlueBtn,
+} from "../styles/styles";
 import CartProduct from "../components/CartProduct/CartProduct";
 import Loader from "../components/Loader/Loader";
+import { Link } from "react-router-dom";
 
 function Cart({
   totalPrice,
@@ -29,7 +36,17 @@ function Cart({
           <EmptycartMsg> Your Cart is empty </EmptycartMsg>
         )}
       </CartBody>
-      <CartFooter> Total: {formatPrice(totalPrice)}</CartFooter>
+
+      <CartFooter>
+        {" "}
+        Total: {formatPrice(totalPrice)}{" "}
+        {products.length > 0 && (
+          <Link to="/checkout">
+            {" "}
+            <DefaultBlueBtn type="button"> Checkout </DefaultBlueBtn>{" "}
+          </Link>
+        )}{" "}
+      </CartFooter>
     </CartPage>
   );
 }

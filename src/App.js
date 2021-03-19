@@ -9,6 +9,7 @@ import Header from "./components/Header/Header";
 import ErrorProduct from "./components/ErrorProduct/ErrorProduct";
 import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 import { deleteItemFromCart, postItemToCart, fetchCart } from "./services/api";
 
@@ -54,6 +55,7 @@ function App() {
   const [apiErrors, setApiErrors] = useState({});
 
   const cartError = apiErrors.cart;
+  console.log(cartError);
 
   const errorKey = Object.keys(apiErrors).find((key) => apiErrors[key] != null);
 
@@ -114,6 +116,12 @@ function App() {
             isLoading={isLoading}
           />
         </Route>
+        {cart.length > 0 && (
+          <Route path="/checkout">
+            {" "}
+            <Checkout />
+          </Route>
+        )}
         <Route path="/products/:productId">
           <Product
             addToCart={addToCart}

@@ -267,22 +267,16 @@ export const CartBody = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  overflow-x: hidden;
+  overflow-x: none;
   overflow-y: auto;
 
   @media (min-width: 768px) {
-    width:100vw;
+    width: 100vw;
     max-width: 100vw;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
   }
 `;
 
 export const CartFooter = styled.footer`
-  height: 6vh;
-  max-height: 6vh;
   background-color: white;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -295,12 +289,23 @@ export const CartFooter = styled.footer`
   font-weight: bold;
   position: fixed;
   bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
+  & > a > button {
+    background-color: rgba(0, 128, 0, 0.7);
+    margin: 5px;
+  }
   @media (min-width: 768px) {
     width: 100vw;
     max-width: 100vw;
-    height: 8vh;
-    max-height: 8vh;
+
+    & > a > button:hover {
+      background-color: rgba(0, 128, 0, 1);
+      cursor: pointer;
+    }
   }
 `;
 
@@ -320,7 +325,7 @@ export const ProductInCart = styled.div`
 
   @media (min-width: 768px) {
     min-height: 250px;
-    width: 100vw;
+    width: 50vw;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -401,6 +406,82 @@ export const RemoveFromCart = styled.button`
 `;
 
 // End of Cartproduct
+
+// CheckoutPage
+
+export const CheckoutBody = styled.div`
+  min-height: 100vh;
+  width: 100vw;
+  padding-top: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const CheckoutHeader = styled.h4`
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+`;
+
+export const CheckoutForm = styled.form`
+  height: max-content;
+  padding: 25px 0;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px 2px rgba(10, 25, 25, 0.25);
+
+  @media (min-width: 768px) {
+    width: 40vw;
+    height: 70vh;
+  }
+`;
+
+export const InputLabel = styled.label`
+  color: black;
+  margin-bottom: 10px;
+`;
+
+export const CheckoutInput = styled.input`
+  text-align: center;
+  margin-bottom: 15px;
+  width: 250px;
+  padding: 2px 2px;
+`;
+
+export const CheckoutBtn = styled.button`
+  min-width: 100px;
+  min-height: 30px;
+  height: max-content;
+  background-color: #3d70b8;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:hover {
+    background: #0053ba;
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+// End of CheckoutPage
 
 // Hero
 
