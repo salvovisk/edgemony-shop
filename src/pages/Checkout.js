@@ -8,16 +8,17 @@ import {
 } from "../styles/styles";
 
 import { useRef } from "react";
+// import { createOrderApi, updateCartApi } from "../services/api";
 
-function Checkout() {
+function Checkout({ cartId, onSubmitOrder }) {
   const form = useRef(null);
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
     const data = new FormData(form.current);
-    const parsed = JSON.stringify(Object.fromEntries(data));
-    // console.log(data.getAll('first-name', 'last-name',));
-    console.log(parsed);
+    const billingData = Object.fromEntries(data);
+    const billingDataraw = { billingData };
+    onSubmitOrder(cartId, billingDataraw);
   }
 
   return (
@@ -31,11 +32,11 @@ function Checkout() {
           name="name"
           required
         ></CheckoutInput>
-        <InputLabel htmlFor="last-name"> Last Name</InputLabel>
+        <InputLabel htmlFor="lastName"> Last Name</InputLabel>
         <CheckoutInput
-          id="last-name"
+          id="lastName"
           type="text"
-          name="last-name"
+          name="lastName"
           required
         ></CheckoutInput>
         <InputLabel htmlFor="address">Address</InputLabel>

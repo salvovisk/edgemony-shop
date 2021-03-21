@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import Home from "./pages/Home";
 import Product from "./pages/Product";
@@ -11,7 +16,14 @@ import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 
-import { deleteItemFromCart, postItemToCart, fetchCart } from "./services/api";
+import {
+  deleteItemFromCart,
+  postItemToCart,
+  fetchCart,
+  updateCartApi,
+  createOrderApi,
+  createCart,
+} from "./services/api";
 
 import data from "./utilities/data";
 
@@ -34,6 +46,7 @@ function App() {
     try {
       const newCart = await fn(...apiParams);
       setCart(newCart.items);
+      return newCart;
     } catch (error) {
       console.error(`${fn.name} API call response error! ${error.message}`);
     }
@@ -51,11 +64,19 @@ function App() {
     updateCart(postItemToCart, cartId, productId, quantity);
   }
 
+  async function createOrder(cartID, data) {
+    await updateCart(async () => {
+      const updatedCart = await await updateCartApi(cartID, data);
+      await createOrderApi(updatedCart.id);
+      const newCart = await createCart();
+      localStorage.setItem("edgemony-cart-id", newCart.id);
+    });
+  }
+
   // Error and Loading Logic
   const [apiErrors, setApiErrors] = useState({});
 
   const cartError = apiErrors.cart;
-  console.log(cartError);
 
   const errorKey = Object.keys(apiErrors).find((key) => apiErrors[key] != null);
 
@@ -116,12 +137,15 @@ function App() {
             isLoading={isLoading}
           />
         </Route>
-        {cart.length > 0 && (
-          <Route path="/checkout">
-            {" "}
-            <Checkout />
-          </Route>
-        )}
+
+        <Route path="/checkout">
+          {cart.length === 0 ? (
+            <Redirect to="/cart" />
+          ) : (
+            <Checkout cartId={cartId} onSubmitOrder={createOrder} />
+          )}
+        </Route>
+
         <Route path="/products/:productId">
           <Product
             addToCart={addToCart}
