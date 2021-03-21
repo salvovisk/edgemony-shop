@@ -44,6 +44,27 @@ components:
       type: string
       example: "men clothing"
 
+    BillingData:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Anacleto
+        lastName:
+          type: string
+          example: Ferri
+        address:
+          type: string
+          example: Via Adua, 32, 10060, Baudenasca, TO
+        email:
+          type: string
+          example: anacleto.ferri@gmail.com
+      required:
+        - name
+        - lastName
+        - address
+        - email
+
     Cart:
       type: object
       properties:
@@ -55,20 +76,7 @@ components:
           items:
             $ref: "#/components/schemas/ProductInCart"
         billingData:
-          type: object
-          properties:
-            name:
-              type: string
-              example: Anacleto
-            lastName:
-              type: string
-              example: Ferri
-            address:
-              type: string
-              example: Via Adua, 32, 10060, Baudenasca, TO
-            email:
-              type: string
-              example: anacleto.ferri@gmail.com
+          $ref: "#/components/schemas/BillingData"
 
     PostCartItem:
       type: object
@@ -125,6 +133,14 @@ components:
           type: integer
           description: Cart id
           example: 1
+      required:
+        - cartId
+
+    PatchCart:
+      type: object
+      properties:
+        billingData:
+          $ref: "#/components/schemas/BillingData"
 
 paths:
   /products:
@@ -212,6 +228,28 @@ paths:
           schema:
             type: integer
           required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+    patch:
+      description: update cart data
+      parameters:
+        - in: path
+          name: id
+          description: id of the cart
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchCart"
       responses:
         "200":
           description: OK
