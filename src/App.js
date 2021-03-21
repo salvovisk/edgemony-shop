@@ -16,14 +16,7 @@ import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 
-import {
-  deleteItemFromCart,
-  postItemToCart,
-  fetchCart,
-  updateCartApi,
-  createOrderApi,
-  createCart,
-} from "./services/api";
+import { deleteItemFromCart, postItemToCart, fetchCart } from "./services/api";
 
 import data from "./utilities/data";
 
@@ -32,6 +25,7 @@ let cartId;
 function App() {
   // Shopping Cart Logic
   const [cart, setCart] = useState([]);
+  const [newCart, setNewCart] = useState("");
 
   const totalPrice = cart.reduce(
     (total, product) => total + product.price * product.quantity,
@@ -44,9 +38,8 @@ function App() {
 
   async function updateCart(fn, ...apiParams) {
     try {
-      const newCart = await fn(...apiParams);
-      setCart(newCart.items);
-      return newCart;
+      const cartObj = await fn(...apiParams);
+      setCart(cartObj.items);
     } catch (error) {
       console.error(`${fn.name} API call response error! ${error.message}`);
     }
@@ -64,14 +57,14 @@ function App() {
     updateCart(postItemToCart, cartId, productId, quantity);
   }
 
-  async function createOrder(cartID, data) {
-    await updateCart(async () => {
-      const updatedCart = await await updateCartApi(cartID, data);
-      await createOrderApi(updatedCart.id);
-      const newCart = await createCart();
-      localStorage.setItem("edgemony-cart-id", newCart.id);
-    });
-  }
+  // async function createOrder(cartID, data) {
+  //   await updateCart(async () => {
+  //     const updatedCart = await await updateCartApi(cartID, data);
+  //     await createOrderApi(updatedCart.id);
+  //     const newCart = await createCart();
+  //     localStorage.setItem("edgemony-cart-id", newCart.id);
+  //   });
+  // }
 
   // Error and Loading Logic
   const [apiErrors, setApiErrors] = useState({});
@@ -100,25 +93,23 @@ function App() {
   useEffect(() => {
     const cartIdFromLocalStorage = localStorage.getItem("edgemony-cart-id");
 
-    if (!cartIdFromLocalStorage) {
-      return;
-    }
-
-    setIsLoading(true);
-    setCartError(undefined);
-    async function fetchCartInEffect() {
-      try {
-        const cartObj = await fetchCart(cartIdFromLocalStorage);
-        setCart(cartObj.items);
-        cartId = cartObj.id;
-      } catch ({ message }) {
-        setCartError({ message, retry: () => setRetry(!retry) });
-      } finally {
-        setIsLoading(false);
+    if (cartIdFromLocalStorage) {
+      async function fetchCartInEffect() {
+        try {
+          setIsLoading(true);
+          setApiErrors("");
+          const cartObj = await fetchCart(cartIdFromLocalStorage);
+          setCart(cartObj.items);
+          cartId = cartObj.id;
+        } catch ({ message }) {
+          setCartError({ message, retry: () => setRetry(!retry) });
+        } finally {
+          setIsLoading(false);
+        }
       }
+      fetchCartInEffect();
     }
-    fetchCartInEffect();
-  }, [retry, setCartError]);
+  }, [retry, setCartError, newCart]);
 
   return (
     <Router>
@@ -142,7 +133,7 @@ function App() {
           {cart.length === 0 ? (
             <Redirect to="/cart" />
           ) : (
-            <Checkout cartId={cartId} onSubmitOrder={createOrder} />
+            <Checkout cartId={cartId} setNewCart={setNewCart} />
           )}
         </Route>
 

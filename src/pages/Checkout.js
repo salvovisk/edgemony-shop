@@ -8,17 +8,27 @@ import {
 } from "../styles/styles";
 
 import { useRef } from "react";
-// import { createOrderApi, updateCartApi } from "../services/api";
+import { createOrder, updateCart, createCart } from "../services/api";
 
-function Checkout({ cartId, onSubmitOrder }) {
+function Checkout({ cartId, setNewCart }) {
   const form = useRef(null);
 
   async function onSubmit(event) {
     event.preventDefault();
     const data = new FormData(form.current);
     const billingData = Object.fromEntries(data);
-    const billingDataraw = { billingData };
-    onSubmitOrder(cartId, billingDataraw);
+    const billingDataFixed = { billingData };
+
+    try {
+      await updateCart(cartId, billingDataFixed);
+      await createOrder(cartId);
+      const r = await createCart();
+      // console.log("res", response);
+      localStorage.setItem("edgemony-cart-id", JSON.stringify(r.id));
+      setNewCart(JSON.parse(localStorage.getItem("edgemony-cart-id")));
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   return (

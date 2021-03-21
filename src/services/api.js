@@ -44,14 +44,14 @@ export async function createCart() {
   });
 }
 
-export async function updateCartApi(cartId, billingDataraw) {
+export async function updateCart(cartId, billingDataraw) {
   return callAPI(`carts/${cartId}`, {
     method: "PATCH",
     body: JSON.stringify(billingDataraw),
   });
 }
 
-export async function createOrderApi(cartId) {
+export async function createOrder(cartId) {
   return callAPI("orders", {
     method: "POST",
     body: JSON.stringify({ cartId }),
